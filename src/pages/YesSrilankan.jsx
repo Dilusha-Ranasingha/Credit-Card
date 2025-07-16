@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 const YesSrilankan = () => {
   const [isAbove18, setIsAbove18] = useState(null);
   const [hasHighIncome, setHasHighIncome] = useState(null);
+  const [isResident, setIsResident] = useState(true); // Default to Yes
   const [incomeScale, setIncomeScale] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [agreed, setAgreed] = useState(false);
 
   const handleNext = () => {
-    if (isAbove18 === null || hasHighIncome === null || !incomeScale || !agreed) {
+    if (isAbove18 === null || hasHighIncome === null || isResident === null || (!isResident && !mobileNumber) || (isResident && !incomeScale) || !agreed) {
       alert("Please complete all fields and agree to the terms.");
       return;
     }
@@ -28,7 +30,7 @@ const YesSrilankan = () => {
           <div className="space-x-3">
             <button
               onClick={() => setIsAbove18(true)}
-              className={`px-4 py-1 rounded ${isAbove18 === true ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+              className={`px-4 py-1 rounded ${isAbove18 === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
             >
               Yes
             </button>
@@ -47,7 +49,7 @@ const YesSrilankan = () => {
           <div className="space-x-3">
             <button
               onClick={() => setHasHighIncome(true)}
-              className={`px-4 py-1 rounded ${hasHighIncome === true ? 'bg-green-500 text-white' : 'bg-gray-200'}`}
+              className={`px-4 py-1 rounded ${hasHighIncome === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
             >
               Yes
             </button>
@@ -60,22 +62,54 @@ const YesSrilankan = () => {
           </div>
         </div>
 
-        {/* Dropdown */}
-        <div>
-          <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
-          <select
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-            value={incomeScale}
-            onChange={(e) => setIncomeScale(e.target.value)}
-          >
-            <option value="">-- Select income scale --</option>
-            <option value="250000-350000">Rs. 250,000 - 350,000</option>
-            <option value="350001-500000">Rs. 350,001 - 500,000</option>
-            <option value="500001+">Rs. 500,001 and above</option>
-          </select>
+        {/* Question 3 */}
+        <div className="flex items-center justify-between">
+          <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
+          <div className="space-x-3">
+            <button
+              onClick={() => setIsResident(true)}
+              className={`px-4 py-1 rounded ${isResident === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => setIsResident(false)}
+              className={`px-4 py-1 rounded ${isResident === false ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
+            >
+              No
+            </button>
+          </div>
         </div>
 
-        {/* Terms and Conditions */}
+        {/* Conditional Content based on Residency */}
+          {isResident ? (
+            <div>
+              <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
+              <select
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                value={incomeScale}
+                onChange={(e) => setIncomeScale(e.target.value)}
+              >
+                <option value="">-- Select income scale --</option>
+                <option value="250000-350000">Rs. 250,000 - 350,000</option>
+                <option value="350001-500000">Rs. 350,001 - 500,000</option>
+                <option value="500001+">Rs. 500,001 and above</option>
+              </select>
+            </div>
+          ) : (
+            <div className="border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+              <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
+              <input
+                type="text"
+                placeholder="Mobile Number"
+                className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+              />
+            </div>
+          )}
+
+          {/* Terms and Conditions */}
         <div className="flex items-start space-x-3">
           <input
             type="checkbox"
