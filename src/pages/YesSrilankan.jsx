@@ -22,7 +22,7 @@ const YesSrilankan = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-xl w-full space-y-6">
-        <h2 className="text-2xl font-bold text-red-700 mb-2 text-center">Check Your Eligibility</h2>
+        <h2 className="text-2xl font-bold text-red-700 mb-2 text-center">Check Eligibility</h2>
 
         {/* Question 1 */}
         <div className="flex items-center justify-between">
@@ -82,38 +82,43 @@ const YesSrilankan = () => {
         </div>
 
         {/* Conditional Content based on Residency */}
-          {isResident ? (
-            <div>
-              <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
-              <select
-                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-                value={incomeScale}
-                onChange={(e) => setIncomeScale(e.target.value)}
-              >
-                <option value="">-- Select income scale --</option>
-                <option value="250000-350000">Rs. 250,000 - 350,000</option>
-                <option value="350001-500000">Rs. 350,001 - 500,000</option>
-                <option value="500001+">Rs. 500,001 and above</option>
-              </select>
+        {isResident ? (
+          <div>
+            <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
+            <select
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+              value={incomeScale}
+              onChange={(e) => setIncomeScale(e.target.value)}
+            >
+              <option value="">-- Select income scale --</option>
+              <option value="250000-350000">Rs. 250,000 - 350,000</option>
+              <option value="350001-500000">Rs. 350,001 - 500,000</option>
+              <option value="500001+">Rs. 500,001 and above</option>
+            </select>
+          </div>
+        ) : (
+          <div>
+            <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+              <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
             </div>
-          ) : (
-            <div >
-              <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
-                  <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
-              </div>
-              <div>
-                <input
+            <div>
+              <input
                 type="text"
                 placeholder="Mobile Number"
                 className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                 value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  setMobileNumber(value);
+                }}
+                maxLength={10}
               />
-              </div>
+              {mobileNumber && mobileNumber.length !== 10 && (
+                <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
+              )}
             </div>
-          )}
-
-          {/* Terms and Conditions */}
+          </div>
+        )}
         <div className="flex items-start space-x-3">
           <input
             type="checkbox"
