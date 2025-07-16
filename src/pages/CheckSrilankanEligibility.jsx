@@ -24,6 +24,16 @@ const handleCustomerStatus = (status) => {
         navigate('/exist-customer-detail');
         return;
     }
+    if (status === 'no') {
+        // Navigate to credit limit section for new customers
+        navigate('/credit-limit-select');
+        return;
+    }
+    if (status === 'skip') {
+        // Skip to next step without saving
+        navigate('/credit-limit-select');
+        return;
+    }
 };
 
   return (
