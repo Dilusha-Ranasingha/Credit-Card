@@ -1,80 +1,101 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ApplicationForm01 = () => {
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
-      <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
-        <div className="flex justify-between items-center mb-6">
-          <button className="bg-red-500 text-white px-4 py-2 rounded">Apply for a Credit Card</button>
-          <div className="flex space-x-2">
-            <span className="text-red-500">1</span>
-            <span>Personal Details</span>
-            <span className="text-red-500">2</span>
-            <span>Contact Details</span>
-            <span className="text-red-500">3</span>
-            <span>Employment Details</span>
-            <span className="text-red-500">4</span>
-            <span>Cashback Details</span>
-            <span className="text-red-500">5</span>
-            <span>Supplementary Card</span>
-            <span className="text-red-500">6</span>
-            <span>Almost there!</span>
-            <span className="text-red-500">7</span>
-            <span>Identity Verification</span>
-          </div>
-        </div>
-        <h2 className="text-xl font-semibold text-center mb-6">"We would like to know more about you"</h2>
-        <div className="space-y-4">
-          <div className="flex space-x-4">
-            <select className="w-1/4 p-2 border rounded">
-              <option>Title *</option>
-            </select>
-            <input className="w-3/4 p-2 border rounded" placeholder="Surname *" />
-          </div>
-          <input className="w-full p-2 border rounded" placeholder="Other Names *" />
-          <div className="flex space-x-4">
-            <input className="w-1/2 p-2 border rounded" placeholder="Name to appear on the card *" />
-            <input type="date" className="w-1/2 p-2 border rounded" placeholder="Date of Birth *" />
-          </div>
-          <div className="flex space-x-4">
-            <select className="w-1/3 p-2 border rounded">
-              <option>Gender *</option>
-            </select>
-            <input className="w-1/3 p-2 border rounded" placeholder="NIC Number *" />
-            <input className="w-1/3 p-2 border rounded" placeholder="Previous NIC # (If Applicable)" />
-          </div>
-          <select className="w-full p-2 border rounded">
-            <option>Nationality</option>
+    <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
+      <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
+        <h2 className="text-2xl font-bold text-red-700 text-center mb-4">We would like to know more about you</h2>
+
+        {/* Personal Details */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <select name="title" onChange={handleChange} className="p-3 border rounded-lg">
+            <option value="">Title *</option>
+            <option value="Mr">Mr</option>
+            <option value="Ms">Ms</option>
+            <option value="Mrs">Mrs</option>
           </select>
-          <div className="flex space-x-4">
-            <input className="w-1/3 p-2 border rounded" placeholder="Country of birth" />
-            <select className="w-1/3 p-2 border rounded">
-              <option>Marital status *</option>
-            </select>
-            <input className="w-1/3 p-2 border rounded" placeholder="Number of dependents" />
+
+          <input name="surname" onChange={handleChange} type="text" placeholder="Surname *" className="p-3 border rounded-lg" />
+
+          <input name="otherNames" onChange={handleChange} type="text" placeholder="Other Names *" className="p-3 border rounded-lg" />
+
+          <input name="nameOnCard" onChange={handleChange} type="text" placeholder="Name to appear on the card *" className="p-3 border rounded-lg" />
+
+          <input name="dob" onChange={handleChange} type="date" placeholder="Date of Birth *" className="p-3 border rounded-lg" />
+
+          <select name="gender" onChange={handleChange} className="p-3 border rounded-lg">
+            <option value="">Gender *</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+
+          <input name="nic" onChange={handleChange} type="text" placeholder="NIC Number *" className="p-3 border rounded-lg" />
+
+          <input name="previousNic" onChange={handleChange} type="text" placeholder="Previous NIC No (if applicable)" className="p-3 border rounded-lg" />
+
+          <select name="nationality" onChange={handleChange} className="p-3 border rounded-lg">
+            <option value="">Nationality *</option>
+            <option value="Sri Lankan">Sri Lankan</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <input name="countryOfBirth" onChange={handleChange} type="text" placeholder="Country of Birth *" className="p-3 border rounded-lg" />
+
+          <select name="maritalStatus" onChange={handleChange} className="p-3 border rounded-lg">
+            <option value="">Marital Status *</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+          </select>
+
+          <input name="dependents" onChange={handleChange} type="number" placeholder="Number of Dependents *" className="p-3 border rounded-lg" />
+
+          <input name="motherMaiden" onChange={handleChange} type="text" placeholder="Mother's Maiden Name *" className="p-3 border rounded-lg" />
+
+          <select name="education" onChange={handleChange} className="p-3 border rounded-lg">
+            <option value="">Highest Education Level *</option>
+            <option value="O/L">O/L</option>
+            <option value="A/L">A/L</option>
+            <option value="Diploma">Diploma</option>
+            <option value="Degree">Degree</option>
+            <option value="Postgraduate">Postgraduate</option>
+          </select>
+
+          <div className="md:col-span-2 flex items-center gap-4">
+            <p className="text-gray-700 text-sm">Are you a member of a family/business associate or business partner holding a senior public office?</p>
+            <label className="flex items-center gap-2">
+              <input type="checkbox" name="govMember" onChange={(e) => setFormData((prev) => ({ ...prev, govMember: e.target.checked }))} />
+              <span>Yes</span>
+            </label>
           </div>
-          <div className="flex space-x-4">
-            <input className="w-1/2 p-2 border rounded" placeholder="Mother's maiden name *" />
-            <select className="w-1/2 p-2 border rounded">
-              <option>Highest education level *</option>
-            </select>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span>Are you a member of your family/business associate/business partner holding a senior public office (Government judicial, Police or military).</span>
-            <input type="radio" name="office" value="yes" /> Yes
-            <input type="radio" name="office" value="no" /> No
-          </div>
-          <h3 className="text-lg font-semibold mt-6">"We would like to know some reference details of an alternative contact person"</h3>
-          <div className="flex space-x-4">
-            <input className="w-1/2 p-2 border rounded" placeholder="Name *" />
-            <div className="w-1/2 flex items-center">
-              <span className="mr-2">+94</span>
-              <input className="w-full p-2 border rounded" placeholder="Mobile No *" />
-            </div>
-          </div>
-          <input className="w-full p-2 border rounded" placeholder="Relationship *" />
         </div>
-        <button className="w-full bg-red-500 text-white py-2 mt-6 rounded">Next</button>
+
+        {/* Reference Contact */}
+        <h3 className="text-lg font-semibold text-gray-800">Reference Contact</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <input name="refName" onChange={handleChange} type="text" placeholder="Name *" className="p-3 border rounded-lg" />
+
+          <div className="flex gap-2 items-center">
+            <span className="text-gray-600">+94</span>
+            <input name="refMobile" onChange={handleChange} type="text" placeholder="Mobile No *" className="p-3 border rounded-lg w-full" />
+          </div>
+
+          <input name="refRelation" onChange={handleChange} type="text" placeholder="Relationship *" className="p-3 border rounded-lg" />
+        </div>
+
+        {/* Submit Button */}
+        <div className="text-center pt-6">
+          <button className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition font-semibold text-lg">
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
