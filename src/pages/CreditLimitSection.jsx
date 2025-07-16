@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import platinum from '../assets/platinum.png';
 import signature from '../assets/signature.png';
 import Gold from '../assets/gold.png';
+import { useNavigate } from 'react-router-dom';
 
 const CreditLimitSection = () => {
   const [creditLimit, setCreditLimit] = useState('');
@@ -11,6 +12,8 @@ const CreditLimitSection = () => {
   const [income, setIncome] = useState(100000);
   const [expenditure, setExpenditure] = useState(50000);
   const [recommendedLimit, setRecommendedLimit] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleCheckEligibility = () => {
     setIsDialogOpen(true);
@@ -30,13 +33,14 @@ const CreditLimitSection = () => {
   };
 
   const handleNext = () => {
-    if (!creditLimit || !selectedCard) {
-      alert("Please check eligibility and select a card type before proceeding.");
-      return;
-    }
-    alert(`Proceeding with ${selectedCard} and limit of LKR ${creditLimit}`);
-    // navigate('/next-page'); // implement navigation here
+  if (!creditLimit || !selectedCard) {
+    alert("Please check eligibility and select a card type before proceeding.");
+    return;
+  }
+
+    navigate('/application-form-01');
   };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300 py-12 px-4">
