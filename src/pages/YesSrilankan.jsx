@@ -7,14 +7,29 @@ const YesSrilankan = () => {
   const [incomeScale, setIncomeScale] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); // NEW
 
   const handleNext = () => {
-    if (isAbove18 === null || hasHighIncome === null || isResident === null || (!isResident && !mobileNumber) || (isResident && !incomeScale) || !agreed) {
+    // Validation
+    if (
+      isAbove18 === null ||
+      hasHighIncome === null ||
+      isResident === null ||
+      (!isResident && !mobileNumber) ||
+      (isResident && !incomeScale) ||
+      !agreed
+    ) {
       alert("Please complete all fields and agree to the terms.");
       return;
     }
 
-    // Continue with next logic (navigate, save, etc.)
+    // Show popup if not resident
+    if (!isResident) {
+      setShowPopup(true);
+      return;
+    }
+
+    // Proceed normally
     alert("Eligibility info submitted successfully!");
     window.location.href = "/check-srilankan-eligibility";
   };
@@ -81,7 +96,7 @@ const YesSrilankan = () => {
           </div>
         </div>
 
-        {/* Conditional Content based on Residency */}
+        {/* Conditional Field */}
         {isResident ? (
           <div>
             <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
@@ -119,6 +134,8 @@ const YesSrilankan = () => {
             </div>
           </div>
         )}
+
+        {/* Terms Checkbox */}
         <div className="flex items-start space-x-3">
           <input
             type="checkbox"
@@ -141,6 +158,23 @@ const YesSrilankan = () => {
           </button>
         </div>
       </div>
+
+      {/* POPUP */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+          <div className="bg-white rounded-xl p-6 max-w-sm w-full shadow-xl text-center">
+            <p className="text-gray-700 mb-4">
+              We will contact you shourtly <br /> <span className="font-semibold">Thank you!</span>
+            </p>
+            <button
+              className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+              onClick={() => setShowPopup(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

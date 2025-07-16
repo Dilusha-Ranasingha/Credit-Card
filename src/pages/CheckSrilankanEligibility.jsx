@@ -5,31 +5,22 @@ const CheckSrilankanEligibility = () => {
   const [name, setName] = useState('');
   const [nic, setNic] = useState('');
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handleCustomerStatus = (status) => {
+  const handleProceed = () => {
     if (!name || !nic) {
-        alert('Please enter your name and NIC before proceeding.');
-        return;
+      alert('Please enter your name and NIC before proceeding.');
+      return;
     }
+    alert(`Thanks ${name}! You selected "YES". We’ll proceed with your details.`);
+    localStorage.setItem('customerName', name);
+    localStorage.setItem('customerNIC', nic);
+    navigate('/exist-customer-detail');
+  };
 
-    alert(`Thanks ${name}! You selected "${status.toUpperCase()}". We’ll proceed with your details.`);
-    // Example: handle other statuses or send data to backend
-    if (status === 'yes') {
-        
-        // Save to localStorage
-        localStorage.setItem('customerName', name);
-        localStorage.setItem('customerNIC', nic);
-        // Navigate to existing customer detail check
-        navigate('/exist-customer-detail');
-        return;
-    }
-    if (status === 'skip') {
-        // Skip to next step without saving
-        navigate('/credit-limit-select');
-        return;
-    }
-};
+  const handleSkip = () => {
+    navigate('/credit-limit-select');
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
@@ -64,13 +55,13 @@ const handleCustomerStatus = (status) => {
         <div>
           <div className="flex gap-4 justify-center">
             <button
-              onClick={() => handleCustomerStatus('yes')}
+              onClick={handleProceed}
               className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
             >
               Proceed
             </button>
             <button
-              onClick={() => handleCustomerStatus('skip')}
+              onClick={handleSkip}
               className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
             >
               Skip
