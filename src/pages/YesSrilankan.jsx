@@ -97,15 +97,19 @@ const YesSrilankan = () => {
               </select>
             </div>
           ) : (
-            <div className="border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
-              <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
-              <input
+            <div >
+              <div className="w-2/3 border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+                  <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
+              </div>
+              <div>
+                <input
                 type="text"
                 placeholder="Mobile Number"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                className="w-2/3 p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
               />
+              </div>
             </div>
           )}
 
