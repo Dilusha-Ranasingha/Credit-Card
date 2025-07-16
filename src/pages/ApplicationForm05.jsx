@@ -16,7 +16,7 @@ const ApplicationForm05 = () => {
   };
 
   const handleNext = () => {
-    console.log("/application-form-06");
+    navigate('/application-form-06');
   };
 
   const handlePrevious = () => {
