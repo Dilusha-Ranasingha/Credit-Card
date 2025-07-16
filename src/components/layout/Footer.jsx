@@ -6,7 +6,7 @@ const Footer = () => (
     width: '100%',
     maxWidth: '100%',
     boxSizing: 'border-box',
-    background: '#592015ff',
+    background: '#1e293b',
     color: '#fff',
     padding: '16px 32px',
     display: 'flex',
