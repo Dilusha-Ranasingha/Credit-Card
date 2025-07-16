@@ -11,7 +11,7 @@ const ApplicationForm07 = () => {
   const currentStep = 7;
 
   const handlePrevious = () => {
-    console.log("Navigating to ApplicationForm06.jsx");
+    navigate('/application-form-06');
   };
 
   const handleSubmit = () => {

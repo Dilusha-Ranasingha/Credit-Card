@@ -20,7 +20,7 @@ const ApplicationForm02 = () => {
   };
 
   const handlePrevious = () => {
-    console.log("Navigating to ApplicationForm01.jsx");
+    navigate('/application-form-01');
   };
 
   return (
