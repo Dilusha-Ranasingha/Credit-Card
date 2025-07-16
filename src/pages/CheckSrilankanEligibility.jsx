@@ -24,11 +24,6 @@ const handleCustomerStatus = (status) => {
         navigate('/exist-customer-detail');
         return;
     }
-    if (status === 'no') {
-        // Navigate to credit limit section for new customers
-        navigate('/credit-limit-select');
-        return;
-    }
     if (status === 'skip') {
         // Skip to next step without saving
         navigate('/credit-limit-select');
@@ -67,19 +62,12 @@ const handleCustomerStatus = (status) => {
 
         {/* Existing Customer Question */}
         <div>
-          <label className="block text-gray-700 mb-3">Are you an existing customer?</label>
           <div className="flex gap-4 justify-center">
             <button
               onClick={() => handleCustomerStatus('yes')}
               className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
             >
-              Yes
-            </button>
-            <button
-              onClick={() => handleCustomerStatus('no')}
-              className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
-            >
-              No
+              Proceed
             </button>
             <button
               onClick={() => handleCustomerStatus('skip')}
