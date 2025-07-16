@@ -9,6 +9,7 @@ import YesSrilankan from './pages/YesSrilankan';
 import CheckSrilankanEligibility from './pages/CheckSrilankanEligibility';
 import ExistCustomerDetailCheck from './pages/ExistCustomerDetailCheck';
 import CreditLimitSection from './pages/CreditLimitSection';
+import ApplicationForm01 from './pages/ApplicationForm01';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/check-srilankan-eligibility" element={<CheckSrilankanEligibility />} />
               <Route path="/exist-customer-detail" element={<ExistCustomerDetailCheck />} />
               <Route path="/credit-limit-select" element={<CreditLimitSection />} />
+              <Route path="/application-form-01" element={<ApplicationForm01 />} />
             </Routes>
           </main>
         <Footer />
