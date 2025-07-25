@@ -3,12 +3,13 @@ import YesNoToggle from "../components/Button/YesNoToggle";
 
 const Eligibility = () => {
   const [isAbove18, setIsAbove18] = useState(null);
-  const [hasHighIncome, setHasHighIncome] = useState(null);
-  const [isResident, setIsResident] = useState(true); // default true
+  const [hasHighIncome, setHasHighIncome] = useState(true);
+  const [isResident, setIsResident] = useState(null);
   const [incomeScale, setIncomeScale] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [cashDeposit, setCashDeposit] = useState(true);
 
   // Error states
   const [errors, setErrors] = useState({});
@@ -44,8 +45,7 @@ const Eligibility = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-xl w-full space-y-6">
-        <h2 className="text-2xl font-bold text-red-700 mb-2 text-center">Check Eligibility</h2>
-
+        
         {/* Question 1 */}
         <div className="flex items-center justify-between">
           <span className="text-gray-800">Are you above 18 years?</span>
@@ -69,7 +69,18 @@ const Eligibility = () => {
           <>
             {/* Question 2 */}
             <div className="flex items-center justify-between">
-              <span className="text-gray-800">Is your monthly income above Rs. 100,000?</span>
+              <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
+              <div>
+                <YesNoToggle value={isResident} onChange={setIsResident} />
+                {errors.isResident && (
+                  <div className="text-red-600 text-xs mt-1 font-bold">This field is required.</div>
+                )}
+              </div>
+            </div>
+
+            {/* Question 3 */}
+            <div className="flex items-center justify-between">
+              <span className="text-gray-800">Is your monthly average income above Rs. 100,000?</span>
               <div>
                 <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
                 {errors.hasHighIncome && (
@@ -78,21 +89,10 @@ const Eligibility = () => {
               </div>
             </div>
 
-            {/* Question 3 */}
-            <div className="flex items-center justify-between">
-              <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
-              <div>
-                <YesNoToggle value={isResident} onChange={setIsResident} />
-                {errors.isResident && (
-                  <div className="text-red-600 text-xs mt-1">This field is required.</div>
-                )}
-              </div>
-            </div>
-
             {/* Conditional Field */}
-            {isResident ? (
+            {hasHighIncome ? (
               <div>
-                <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
+                <label className="block text-gray-800 mb-1">Select your minimum gross income scale Rs:</label>
                 <select
                   className="w-full p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                   value={incomeScale}
@@ -109,30 +109,73 @@ const Eligibility = () => {
               </div>
             ) : (
               <div>
-                <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
-                  <p>
-                    Looks like you're applying from outside Sri Lanka! Drop your number below – we’ll be in touch soon. We're excited to have you on board!
-                  </p>
+                {/* Question 3.No */}
+                <div className="flex items-center justify-between">
+                  <span className="text-gray-800">Do you wish to obtain the card against a cash deposit?</span>
+                  <div>
+                    <YesNoToggle value={cashDeposit} onChange={setCashDeposit} />
+                    {errors.cashDeposit && (
+                      <div className="text-red-600 text-xs mt-1 font-bold">This field is required.</div>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Mobile Number"
-                    className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-                    value={mobileNumber}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/\D/g, "");
-                      setMobileNumber(value);
-                    }}
-                    maxLength={10}
-                  />
-                  {errors.mobileNumber && (
-                    <span className="text-red-600 font-bold text-xs">This field is required.</span>
-                  )}
-                  {mobileNumber && mobileNumber.length !== 10 && (
-                    <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
-                  )}
-                </div>
+
+                {/* Conditional Field */}
+                {cashDeposit ? (
+                  <div>
+                    <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+                      <p>
+                        Great! Drop your number below and our team will reach out to you shortly with the next steps. Stay tuned - we are excited to have you on board!
+                      </p>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Mobile Number"
+                        className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                        value={mobileNumber}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          setMobileNumber(value);
+                        }}
+                        maxLength={10}
+                      />
+                      {errors.mobileNumber && (
+                        <span className="text-red-600 font-bold text-xs">This field is required.</span>
+                      )}
+                      {mobileNumber && mobileNumber.length !== 10 && (
+                        <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+                      <p>
+                        It looks like this card requires a higher income level - but don't worry, we've got options! Drop your number below and one of our team members will be in touch to guide you.
+                      </p>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Mobile Number"
+                        className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                        value={mobileNumber}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          setMobileNumber(value);
+                        }}
+                        maxLength={10}
+                      />
+                      {errors.mobileNumber && (
+                        <span className="text-red-600 font-bold text-xs">This field is required.</span>
+                      )}
+                      {mobileNumber && mobileNumber.length !== 10 && (
+                        <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
