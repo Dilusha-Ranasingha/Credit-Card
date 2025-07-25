@@ -110,9 +110,10 @@ const Eligibility = () => {
                   onChange={(e) => setIncomeScale(e.target.value)}
                 >
                   <option value="">-- Select income scale --</option>
-                  <option value="250000-350000">Rs. 250,000 - 350,000</option>
-                  <option value="350001-500000">Rs. 350,001 - 500,000</option>
-                  <option value="500001+">Rs. 500,001 and above</option>
+                  <option value="250000-350000">Rs. 100,000 - 249,999</option>
+                  <option value="350001-500000">Rs. 250,000 - 299,999</option>
+                  <option value="500001-750000">Rs. 300,000 - 449,999</option>
+                  <option value="500001+">Rs. 450,000 and above</option>
                 </select>
                 {errors.incomeScale && (
                   <div className="text-red-600 font-bold text-xs mt-1">This field is required.</div>
