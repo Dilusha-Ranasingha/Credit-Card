@@ -15,43 +15,44 @@ const Eligibility = () => {
   const [errors, setErrors] = useState({});
 
   const handleNext = () => {
-  const newErrors = {};
+    const newErrors = {};
 
-  if (isAbove18 === null) newErrors.isAbove18 = true;
-  if (isAbove18 !== false && hasHighIncome === null) newErrors.hasHighIncome = true;
-  if (isAbove18 !== false && isResident === null) newErrors.isResident = true;
-  
-  // Only validate mobile number when income is low and user selected cash deposit OR not
-  if (isAbove18 !== false && hasHighIncome === false && !mobileNumber) {
-    newErrors.mobileNumber = true;
-  }
+    if (isAbove18 === null) newErrors.isAbove18 = true;
+    if (isAbove18 !== false && hasHighIncome === null) newErrors.hasHighIncome = true;
+    if (isAbove18 !== false && isResident === null) newErrors.isResident = true;
+    
+    // Only validate mobile number when income is low and user selected cash deposit OR not
+    if (isAbove18 !== false && hasHighIncome === false && !mobileNumber) {
+      newErrors.mobileNumber = true;
+    }
 
-  // Only validate income scale when income is high
-  if (
-    isAbove18 !== false &&
-    hasHighIncome === true &&
-    !incomeScale
-  ) {
-    newErrors.incomeScale = true;
-  }
+    // Only validate income scale when income is high
+    if (
+      isAbove18 !== false &&
+      hasHighIncome === true &&
+      !incomeScale
+    ) {
+      newErrors.incomeScale = true;
+    }
 
-  if (isAbove18 !== false && !agreed) newErrors.agreed = true;
+    if (isAbove18 !== false && !agreed) newErrors.agreed = true;
 
-  setErrors(newErrors);
+    setErrors(newErrors);
 
-  if (Object.keys(newErrors).length > 0) return;
+    if (Object.keys(newErrors).length > 0) return;
 
-  // Show popup ONLY for users with low income
-  if (hasHighIncome === false) {
-    setShowPopup(true);
-    return;
-  }
+    // Show popup ONLY for users with low income
+    if (hasHighIncome === false) {
+      setShowPopup(true);
+      return;
+    }
 
-  // Navigate if all good
-  alert("Eligibility info submitted successfully!");
-  window.location.href = "/check-eligibility";
-};
+    localStorage.setItem('selectedIncomeScale', incomeScale);      // Store income scale in localStorage
 
+    // Navigate if all good
+    alert("Eligibility info submitted successfully!");
+    window.location.href = "/check-eligibility";
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
@@ -110,10 +111,10 @@ const Eligibility = () => {
                   onChange={(e) => setIncomeScale(e.target.value)}
                 >
                   <option value="">-- Select income scale --</option>
-                  <option value="250000-350000">Rs. 100,000 - 249,999</option>
-                  <option value="350001-500000">Rs. 250,000 - 299,999</option>
-                  <option value="500001-750000">Rs. 300,000 - 449,999</option>
-                  <option value="500001+">Rs. 450,000 and above</option>
+                  <option value="100000-249999">Rs. 100,000 - 249,999</option>
+                  <option value="250000-299999">Rs. 250,000 - 299,999</option>
+                  <option value="300000-449999">Rs. 300,000 - 449,999</option>
+                  <option value="450000+">Rs. 450,000 and above</option>
                 </select>
                 {errors.incomeScale && (
                   <div className="text-red-600 font-bold text-xs mt-1">This field is required.</div>
