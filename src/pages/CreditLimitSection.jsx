@@ -14,6 +14,7 @@ const CreditLimitSection = () => {
   const [expenditure, setExpenditure] = useState(50000);
   const [recommendedLimit, setRecommendedLimit] = useState(0);
   const [incomeScale, setIncomeScale] = useState('');
+  const [selectedAssociation, setSelectedAssociation] = useState('');
 
   const navigate = useNavigate();
 
@@ -234,7 +235,7 @@ const CreditLimitSection = () => {
         <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
           <h4 className="text-lg font-semibold text-gray-800 mb-4">Optional: Affinity/Co-Branded Card</h4>
           <p className="text-gray-700 mb-4">Would you like to apply for an Affinity or Co-Branded Credit Card?</p>
-          <div className="flex gap-6">
+          <div className="flex gap-6 mb-4">
             <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
@@ -258,6 +259,23 @@ const CreditLimitSection = () => {
               <span className="text-gray-700">No</span>
             </label>
           </div>
+          {affinityCard === 'yes' && (
+            <div>
+              <label className="block text-gray-800 mb-1">Select Association</label>
+              <select
+                value={selectedAssociation}
+                onChange={(e) => setSelectedAssociation(e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+              >
+                <option value="">-- Select an association --</option>
+                <option value="Affinity - Trinity College OBA">Affinity - Trinity College OBA</option>
+                <option value="Affinity - St. Anthony's College Kandy OBA">Affinity - St. Anthony's College Kandy OBA</option>
+                <option value="Affinity - Isipathana Collage OBA">Affinity - Isipathana Collage OBA</option>
+                <option value="Affinity - St.Sebastian's Collage OBA">Affinity - St.Sebastian's Collage OBA</option>
+                <option value="Co-Branded - Lanka IOC">Co-Branded - Lanka IOC</option>
+              </select>
+            </div>
+          )}
         </div>
 
         {/* Next Button */}
@@ -340,7 +358,7 @@ const CreditLimitSection = () => {
               </div>
               <div className="mt-6 flex justify-end">
                 <button
-                  onClick={handleSubmit}
+                  onChange={handleSubmit}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                 >
                   Submit
