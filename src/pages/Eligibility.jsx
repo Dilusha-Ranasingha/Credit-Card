@@ -43,78 +43,93 @@ const Eligibility = () => {
           <YesNoToggle value={isAbove18} onChange={setIsAbove18} />
         </div>
 
-        {/* Question 2 */}
-        <div className="flex items-center justify-between">
-          <span className="text-gray-800">Is your monthly income above Rs. 100,000?</span>
-          <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
-        </div>
-
-        {/* Question 3 */}
-        <div className="flex items-center justify-between">
-          <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
-          <YesNoToggle value={isResident} onChange={setIsResident} />
-        </div>
-
-        {/* Conditional Field */}
-        {isResident ? (
-          <div>
-            <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
-            <select
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-              value={incomeScale}
-              onChange={(e) => setIncomeScale(e.target.value)}
-            >
-              <option value="">-- Select income scale --</option>
-              <option value="250000-350000">Rs. 250,000 - 350,000</option>
-              <option value="350001-500000">Rs. 350,001 - 500,000</option>
-              <option value="500001+">Rs. 500,001 and above</option>
-            </select>
-          </div>
-        ) : (
-          <div>
-            <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
-              <p>
-                Looks like you're applying from outside Sri Lanka! Drop your number below – we’ll be in touch soon. We're excited to have you on board!
-              </p>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Mobile Number"
-                className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
-                value={mobileNumber}
-                onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, "");
-                  setMobileNumber(value);
-                }}
-                maxLength={10}
-              />
-              {mobileNumber && mobileNumber.length !== 10 && (
-                <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
-              )}
-            </div>
+        {/* Ineligibility Message for Age */}
+        {isAbove18 === false && (
+          <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700 my-4">
+            Thank you for applying for a DFCC Credit Card. We are unable to accommodate your request since we can only offer credit cards to individuals over 18 years of age. We look forward to having you onboard in the future!
           </div>
         )}
 
-        {/* Terms Checkbox */}
-        <div className="flex items-start space-x-3">
-          <input
-            type="checkbox"
-            className="mt-1"
-            checked={agreed}
-            onChange={() => setAgreed(!agreed)}
-          />
-          <label className="text-sm text-gray-700">
-            I have read and agreed with the{" "}
-            <span className="font-medium text-red-700">General Terms and Conditions</span>.
-          </label>
-        </div>
+        {/* Other Questions and Fields */}
+        {isAbove18 !== false && (
+          <>
+            {/* Question 2 */}
+            <div className="flex items-center justify-between">
+              <span className="text-gray-800">Is your monthly income above Rs. 100,000?</span>
+              <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
+            </div>
+
+            {/* Question 3 */}
+            <div className="flex items-center justify-between">
+              <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
+              <YesNoToggle value={isResident} onChange={setIsResident} />
+            </div>
+
+            {/* Conditional Field */}
+            {isResident ? (
+              <div>
+                <label className="block text-gray-800 mb-1">Select your minimum gross income scale:</label>
+                <select
+                  className="w-full p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                  value={incomeScale}
+                  onChange={(e) => setIncomeScale(e.target.value)}
+                >
+                  <option value="">-- Select income scale --</option>
+                  <option value="250000-350000">Rs. 250,000 - 350,000</option>
+                  <option value="350001-500000">Rs. 350,001 - 500,000</option>
+                  <option value="500001+">Rs. 500,001 and above</option>
+                </select>
+              </div>
+            ) : (
+              <div>
+                <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
+                  <p>
+                    Looks like you're applying from outside Sri Lanka! Drop your number below – we’ll be in touch soon. We're excited to have you on board!
+                  </p>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Mobile Number"
+                    className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                    value={mobileNumber}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, "");
+                      setMobileNumber(value);
+                    }}
+                    maxLength={10}
+                  />
+                  {mobileNumber && mobileNumber.length !== 10 && (
+                    <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Terms Checkbox */}
+            <div className="flex items-start space-x-3">
+              <input
+                type="checkbox"
+                className="mt-1"
+                checked={agreed}
+                onChange={() => setAgreed(!agreed)}
+              />
+              <label className="text-sm text-gray-700">
+                I have read and agreed with the{" "}
+                <span className="font-medium text-red-700">General Terms and Conditions</span>.
+              </label>
+            </div>
+          </>
+        )}
 
         {/* Next Button */}
         <div className="text-center">
           <button
             onClick={handleNext}
-            className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition"
+            className={`bg-red-600 text-white px-6 py-2 rounded-md transition ${
+              isAbove18 === false ? "opacity-50 cursor-not-allowed" : "hover:bg-red-700"
+            }`}
+            disabled={isAbove18 === false}
           >
             Next
           </button>
