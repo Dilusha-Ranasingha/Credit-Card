@@ -49,7 +49,7 @@ const Eligibility = () => {
 
   // Navigate if all good
   alert("Eligibility info submitted successfully!");
-  window.location.href = "/check-srilankan-eligibility";
+  window.location.href = "/check-eligibility";
 };
 
 

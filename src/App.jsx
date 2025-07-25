@@ -24,7 +24,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/eligibility" element={<Eligibility />} />
-              <Route path="/check-srilankan-eligibility" element={<CheckSrilankanEligibility />} />
+              <Route path="/check-eligibility" element={<CheckSrilankanEligibility />} />
               <Route path="/exist-customer-detail" element={<ExistCustomerDetailCheck />} />
               <Route path="/credit-limit-select" element={<CreditLimitSection />} />
               <Route path="/application-form-01" element={<ApplicationForm01 />} />
