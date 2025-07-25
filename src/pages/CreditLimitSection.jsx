@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import platinum from '../assets/platinum.png';
 import signature from '../assets/signature.png';
-import Gold from '../assets/gold.png';
 import VIC from '../assets/VIC.png';
 import WMC from '../assets/WMC.png';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +13,17 @@ const CreditLimitSection = () => {
   const [income, setIncome] = useState(100000);
   const [expenditure, setExpenditure] = useState(50000);
   const [recommendedLimit, setRecommendedLimit] = useState(0);
+  const [incomeScale, setIncomeScale] = useState('');
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Retrieve income scale from localStorage on component mount
+    const storedIncomeScale = localStorage.getItem('selectedIncomeScale');
+    if (storedIncomeScale) {
+      setIncomeScale(storedIncomeScale);
+    }
+  }, []);
 
   const handleCheckEligibility = () => {
     setIsDialogOpen(true);
@@ -54,6 +62,24 @@ const CreditLimitSection = () => {
     navigate('/application-form-01');
   };
 
+  // Determine which cards to display based on income scale
+  const getEligibleCards = () => {
+    switch (incomeScale) {
+      case '100000-249999':
+        return ['platinum'];
+      case '250000-299999':
+        return ['platinum', 'signature'];
+      case '300000-449999':
+        return ['platinum', 'signature', 'wmc'];
+      case '450000+':
+        return ['platinum', 'signature', 'wmc', 'vic'];
+      default:
+        return []; // No cards if income scale is not set or invalid
+    }
+  };
+
+  const eligibleCards = getEligibleCards();
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300 py-12 px-4">
       <div className="bg-white p-10 rounded-xl shadow-xl max-w-5xl w-full space-y-10">
@@ -84,114 +110,118 @@ const CreditLimitSection = () => {
           <p className="text-gray-600 mb-6">Pick a card that suits your lifestyle</p>
 
           <div className="flex flex-col lg:flex-row gap-6 justify-center">
-            {/* Platinum */}
-            <div
-              className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
-                selectedCard === 'platinum' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => setSelectedCard('platinum')}
-            >
-              <div className="text-center mb-4">
-                <img src={platinum} alt="Visa Platinum Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+            {eligibleCards.includes('platinum') && (
+              <div
+                className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
+                  selectedCard === 'platinum' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                }`}
+                onClick={() => setSelectedCard('platinum')}
+              >
+                <div className="text-center mb-4">
+                  <img src={platinum} alt="Visa Platinum Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+                </div>
+                <label className="flex items-center mb-4">
+                  <input
+                    type="radio"
+                    name="cardType"
+                    value="platinum"
+                    checked={selectedCard === 'platinum'}
+                    onChange={(e) => setSelectedCard(e.target.value)}
+                    className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-lg font-semibold text-gray-800">Visa Platinum Card</span>
+                </label>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 100,000</li>
+                  <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
+                </ul>
               </div>
-              <label className="flex items-center mb-4">
-                <input
-                  type="radio"
-                  name="cardType"
-                  value="platinum"
-                  checked={selectedCard === 'platinum'}
-                  onChange={(e) => setSelectedCard(e.target.value)}
-                  className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
-                />
-                <span className="text-lg font-semibold text-gray-800">Visa Platinum Card</span>
-              </label>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 100,000</li>
-                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
-              </ul>
-            </div>
+            )}
 
-            {/* Signature */}
-            <div
-              className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
-                selectedCard === 'signature' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => setSelectedCard('signature')}
-            >
-              <div className="text-center mb-4">
-                <img src={signature} alt="Visa Signature Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+            {eligibleCards.includes('signature') && (
+              <div
+                className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
+                  selectedCard === 'signature' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                }`}
+                onClick={() => setSelectedCard('signature')}
+              >
+                <div className="text-center mb-4">
+                  <img src={signature} alt="Visa Signature Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+                </div>
+                <label className="flex items-center mb-4">
+                  <input
+                    type="radio"
+                    name="cardType"
+                    value="signature"
+                    checked={selectedCard === 'signature'}
+                    onChange={(e) => setSelectedCard(e.target.value)}
+                    className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-lg font-semibold text-gray-800">Visa Signature Card</span>
+                </label>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
+                  <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC Bank account on every transaction</li>
+                </ul>
               </div>
-              <label className="flex items-center mb-4">
-                <input
-                  type="radio"
-                  name="cardType"
-                  value="signature"
-                  checked={selectedCard === 'signature'}
-                  onChange={(e) => setSelectedCard(e.target.value)}
-                  className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
-                />
-                <span className="text-lg font-semibold text-gray-800">Visa Signature Card</span>
-              </label>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
-                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC Bank account on every transaction</li>
-              </ul>
-            </div>
+            )}
 
-            {/* WMC */}
-            <div
-              className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
-                selectedCard === 'wmc' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => setSelectedCard('wmc')}
-            >
-              <div className="text-center mb-4">
-                <img src={WMC} alt="Visa World Mastercard" className="w-full max-w-xs mx-auto h-48 object-contain" />
+            {eligibleCards.includes('wmc') && (
+              <div
+                className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
+                  selectedCard === 'wmc' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                }`}
+                onClick={() => setSelectedCard('wmc')}
+              >
+                <div className="text-center mb-4">
+                  <img src={WMC} alt="Visa World Mastercard" className="w-full max-w-xs mx-auto h-48 object-contain" />
+                </div>
+                <label className="flex items-center mb-4">
+                  <input
+                    type="radio"
+                    name="cardType"
+                    value="wmc"
+                    checked={selectedCard === 'wmc'}
+                    onChange={(e) => setSelectedCard(e.target.value)}
+                    className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-lg font-semibold text-gray-800">Visa World Mastercard</span>
+                </label>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
+                  <li><span className="text-red-500 mr-2">•</span> 1.5% Unlimited CashBack into your DFCC account</li>
+                  <li><span className="text-red-500 mr-2">•</span> 1% Unlimited</li>
+                </ul>
               </div>
-              <label className="flex items-center mb-4">
-                <input
-                  type="radio"
-                  name="cardType"
-                  value="wmc"
-                  checked={selectedCard === 'wmc'}
-                  onChange={(e) => setSelectedCard(e.target.value)}
-                  className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
-                />
-                <span className="text-lg font-semibold text-gray-800">Visa World Mastercard</span>
-              </label>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
-                <li><span className="text-red-500 mr-2">•</span> 1.5% Unlimited CashBack into your DFCC account</li>
-                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited</li>
-              </ul>
-            </div>
+            )}
 
-            {/* VIC */}
-            <div
-              className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
-                selectedCard === 'vic' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-              }`}
-              onClick={() => setSelectedCard('vic')}
-            >
-              <div className="text-center mb-4">
-                <img src={VIC} alt="Visa Infinite Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+            {eligibleCards.includes('vic') && (
+              <div
+                className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
+                  selectedCard === 'vic' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                }`}
+                onClick={() => setSelectedCard('vic')}
+              >
+                <div className="text-center mb-4">
+                  <img src={VIC} alt="Visa Infinite Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+                </div>
+                <label className="flex items-center mb-4">
+                  <input
+                    type="radio"
+                    name="cardType"
+                    value="vic"
+                    checked={selectedCard === 'vic'}
+                    onChange={(e) => setSelectedCard(e.target.value)}
+                    className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
+                  />
+                  <span className="text-lg font-semibold text-gray-800">Visa Infinite Card</span>
+                </label>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 750,000</li>
+                  <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
+                </ul>
               </div>
-              <label className="flex items-center mb-4">
-                <input
-                  type="radio"
-                  name="cardType"
-                  value="vic"
-                  checked={selectedCard === 'vic'}
-                  onChange={(e) => setSelectedCard(e.target.value)}
-                  className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
-                />
-                <span className="text-lg font-semibold text-gray-800">Visa Infinite Card</span>
-              </label>
-              <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 750,000</li>
-                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
-              </ul>
-            </div>
+            )}
           </div>
 
           {/* Disclaimer */}
