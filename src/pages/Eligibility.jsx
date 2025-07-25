@@ -10,18 +10,27 @@ const Eligibility = () => {
   const [agreed, setAgreed] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
+  // Error states
+  const [errors, setErrors] = useState({});
+
   const handleNext = () => {
+    const newErrors = {};
+
+    if (isAbove18 === null) newErrors.isAbove18 = true;
+    if (isAbove18 !== false && hasHighIncome === null) newErrors.hasHighIncome = true;
+    if (isAbove18 !== false && isResident === null) newErrors.isResident = true;
+    if (isAbove18 !== false && isResident === false && !mobileNumber) newErrors.mobileNumber = true;
     if (
-      isAbove18 === null ||
-      hasHighIncome === null ||
-      isResident === null ||
-      (!isResident && !mobileNumber) ||
-      (isResident && !incomeScale) ||
-      !agreed
-    ) {
-      alert("Please complete all fields and agree to the terms.");
-      return;
-    }
+      isAbove18 !== false &&
+      isResident === true &&
+      !incomeScale
+    )
+      newErrors.incomeScale = true;
+    if (isAbove18 !== false && !agreed) newErrors.agreed = true;
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) return;
 
     if (!isResident) {
       setShowPopup(true);
@@ -40,7 +49,12 @@ const Eligibility = () => {
         {/* Question 1 */}
         <div className="flex items-center justify-between">
           <span className="text-gray-800">Are you above 18 years?</span>
-          <YesNoToggle value={isAbove18} onChange={setIsAbove18} />
+          <div>
+            <YesNoToggle value={isAbove18} onChange={setIsAbove18} />
+            {errors.isAbove18 && (
+              <div className="text-red-600 text-xs mt-1 font-bold">This field is required.</div>
+            )}
+          </div>
         </div>
 
         {/* Ineligibility Message for Age */}
@@ -56,13 +70,23 @@ const Eligibility = () => {
             {/* Question 2 */}
             <div className="flex items-center justify-between">
               <span className="text-gray-800">Is your monthly income above Rs. 100,000?</span>
-              <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
+              <div>
+                <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
+                {errors.hasHighIncome && (
+                  <div className="text-red-600 text-xs mt-1 font-bold">This field is required.</div>
+                )}
+              </div>
             </div>
 
             {/* Question 3 */}
             <div className="flex items-center justify-between">
               <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
-              <YesNoToggle value={isResident} onChange={setIsResident} />
+              <div>
+                <YesNoToggle value={isResident} onChange={setIsResident} />
+                {errors.isResident && (
+                  <div className="text-red-600 text-xs mt-1">This field is required.</div>
+                )}
+              </div>
             </div>
 
             {/* Conditional Field */}
@@ -79,6 +103,9 @@ const Eligibility = () => {
                   <option value="350001-500000">Rs. 350,001 - 500,000</option>
                   <option value="500001+">Rs. 500,001 and above</option>
                 </select>
+                {errors.incomeScale && (
+                  <div className="text-red-600 font-bold text-xs mt-1">This field is required.</div>
+                )}
               </div>
             ) : (
               <div>
@@ -99,6 +126,9 @@ const Eligibility = () => {
                     }}
                     maxLength={10}
                   />
+                  {errors.mobileNumber && (
+                    <span className="text-red-600 font-bold text-xs">This field is required.</span>
+                  )}
                   {mobileNumber && mobileNumber.length !== 10 && (
                     <span className="text-red-600 text-sm">Mobile number must be exactly 10 digits.</span>
                   )}
@@ -119,6 +149,9 @@ const Eligibility = () => {
                 <span className="font-medium text-red-700">General Terms and Conditions</span>.
               </label>
             </div>
+            {errors.agreed && (
+              <div className="text-red-600 font-bold text-xs mt-1">This field is required.</div>
+            )}
           </>
         )}
 
