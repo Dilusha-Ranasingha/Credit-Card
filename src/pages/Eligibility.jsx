@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import YesNoToggle from "../components/Button/YesNoToggle";
 
 const Eligibility = () => {
   const [isAbove18, setIsAbove18] = useState(null);
   const [hasHighIncome, setHasHighIncome] = useState(null);
-  const [isResident, setIsResident] = useState(true); // Default to Yes
-  const [incomeScale, setIncomeScale] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [isResident, setIsResident] = useState(true); // default true
+  const [incomeScale, setIncomeScale] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [agreed, setAgreed] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // NEW
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleNext = () => {
-    // Validation
     if (
       isAbove18 === null ||
       hasHighIncome === null ||
@@ -23,13 +23,11 @@ const Eligibility = () => {
       return;
     }
 
-    // Show popup if not resident
     if (!isResident) {
       setShowPopup(true);
       return;
     }
 
-    // Proceed normally
     alert("Eligibility info submitted successfully!");
     window.location.href = "/check-srilankan-eligibility";
   };
@@ -37,62 +35,24 @@ const Eligibility = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-xl w-full space-y-6">
+        <h2 className="text-2xl font-bold text-red-700 mb-2 text-center">Check Eligibility</h2>
 
         {/* Question 1 */}
         <div className="flex items-center justify-between">
           <span className="text-gray-800">Are you above 18 years?</span>
-          <div className="space-x-3">
-            <button
-              onClick={() => setIsAbove18(true)}
-              className={`px-4 py-1 rounded ${isAbove18 === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              Yes
-            </button>
-            <button
-              onClick={() => setIsAbove18(false)}
-              className={`px-4 py-1 rounded ${isAbove18 === false ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              No
-            </button>
-          </div>
+          <YesNoToggle value={isAbove18} onChange={setIsAbove18} />
         </div>
 
         {/* Question 2 */}
         <div className="flex items-center justify-between">
           <span className="text-gray-800">Is your monthly income above Rs. 100,000?</span>
-          <div className="space-x-3">
-            <button
-              onClick={() => setHasHighIncome(true)}
-              className={`px-4 py-1 rounded ${hasHighIncome === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              Yes
-            </button>
-            <button
-              onClick={() => setHasHighIncome(false)}
-              className={`px-4 py-1 rounded ${hasHighIncome === false ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              No
-            </button>
-          </div>
+          <YesNoToggle value={hasHighIncome} onChange={setHasHighIncome} />
         </div>
 
         {/* Question 3 */}
         <div className="flex items-center justify-between">
           <span className="text-gray-800">Are you a resident of Sri Lanka?</span>
-          <div className="space-x-3">
-            <button
-              onClick={() => setIsResident(true)}
-              className={`px-4 py-1 rounded ${isResident === true ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              Yes
-            </button>
-            <button
-              onClick={() => setIsResident(false)}
-              className={`px-4 py-1 rounded ${isResident === false ? 'bg-red-500 text-white' : 'bg-gray-200'}`}
-            >
-              No
-            </button>
-          </div>
+          <YesNoToggle value={isResident} onChange={setIsResident} />
         </div>
 
         {/* Conditional Field */}
@@ -113,7 +73,9 @@ const Eligibility = () => {
         ) : (
           <div>
             <div className="w-full border-2 border-red-600 rounded-md p-4 bg-red-50 text-red-700">
-              <p>Looks like you're applying from outside Sri Lanka! Drop your number below - we'll be in touch soon. We're excited to have you on board!</p>
+              <p>
+                Looks like you're applying from outside Sri Lanka! Drop your number below – we’ll be in touch soon. We're excited to have you on board!
+              </p>
             </div>
             <div>
               <input
@@ -122,7 +84,7 @@ const Eligibility = () => {
                 className="w-full p-2 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
                 value={mobileNumber}
                 onChange={(e) => {
-                  const value = e.target.value.replace(/\D/g, '');
+                  const value = e.target.value.replace(/\D/g, "");
                   setMobileNumber(value);
                 }}
                 maxLength={10}
@@ -143,7 +105,8 @@ const Eligibility = () => {
             onChange={() => setAgreed(!agreed)}
           />
           <label className="text-sm text-gray-700">
-            I have read and agreed with the <span className="font-medium text-red-700">General Terms and Conditions</span>.
+            I have read and agreed with the{" "}
+            <span className="font-medium text-red-700">General Terms and Conditions</span>.
           </label>
         </div>
 
@@ -158,12 +121,12 @@ const Eligibility = () => {
         </div>
       </div>
 
-      {/* POPUP */}
+      {/* Popup */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
           <div className="bg-white rounded-xl p-6 max-w-sm w-full shadow-xl text-center">
             <p className="text-gray-700 mb-4">
-              We will contact you shourtly <br /> <span className="font-semibold">Thank you!</span>
+              We will contact you shortly <br /> <span className="font-semibold">Thank you!</span>
             </p>
             <button
               className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
