@@ -15,32 +15,43 @@ const Eligibility = () => {
   const [errors, setErrors] = useState({});
 
   const handleNext = () => {
-    const newErrors = {};
+  const newErrors = {};
 
-    if (isAbove18 === null) newErrors.isAbove18 = true;
-    if (isAbove18 !== false && hasHighIncome === null) newErrors.hasHighIncome = true;
-    if (isAbove18 !== false && isResident === null) newErrors.isResident = true;
-    if (isAbove18 !== false && isResident === false && !mobileNumber) newErrors.mobileNumber = true;
-    if (
-      isAbove18 !== false &&
-      isResident === true &&
-      !incomeScale
-    )
-      newErrors.incomeScale = true;
-    if (isAbove18 !== false && !agreed) newErrors.agreed = true;
+  if (isAbove18 === null) newErrors.isAbove18 = true;
+  if (isAbove18 !== false && hasHighIncome === null) newErrors.hasHighIncome = true;
+  if (isAbove18 !== false && isResident === null) newErrors.isResident = true;
+  
+  // Only validate mobile number when income is low and user selected cash deposit OR not
+  if (isAbove18 !== false && hasHighIncome === false && !mobileNumber) {
+    newErrors.mobileNumber = true;
+  }
 
-    setErrors(newErrors);
+  // Only validate income scale when income is high
+  if (
+    isAbove18 !== false &&
+    hasHighIncome === true &&
+    !incomeScale
+  ) {
+    newErrors.incomeScale = true;
+  }
 
-    if (Object.keys(newErrors).length > 0) return;
+  if (isAbove18 !== false && !agreed) newErrors.agreed = true;
 
-    if (!isResident) {
-      setShowPopup(true);
-      return;
-    }
+  setErrors(newErrors);
 
-    alert("Eligibility info submitted successfully!");
-    window.location.href = "/check-srilankan-eligibility";
-  };
+  if (Object.keys(newErrors).length > 0) return;
+
+  // Show popup ONLY for users with low income
+  if (hasHighIncome === false) {
+    setShowPopup(true);
+    return;
+  }
+
+  // Navigate if all good
+  alert("Eligibility info submitted successfully!");
+  window.location.href = "/check-srilankan-eligibility";
+};
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
@@ -215,15 +226,19 @@ const Eligibility = () => {
       {/* Popup */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
-          <div className="bg-white rounded-xl p-6 max-w-sm w-full shadow-xl text-center">
-            <p className="text-gray-700 mb-4">
-              We will contact you shortly <br /> <span className="font-semibold">Thank you!</span>
+          <div className="bg-red-700 rounded-xl p-6 max-w-xl w-full shadow-xl text-center text-white">
+            <p className="text-lg mb-4">
+              We'll contact you shortly
+              <br />
+              Thank you!
             </p>
             <button
-              className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
+              className="bg-transparent border-2 border-white text-white px-4 py-2 rounded-full hover:bg-red-700 transition"
               onClick={() => setShowPopup(false)}
             >
-              Close
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
         </div>
