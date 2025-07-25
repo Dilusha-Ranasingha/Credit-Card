@@ -20,9 +20,20 @@ const CreditLimitSection = () => {
   };
 
   const calculateRecommendedLimit = () => {
-    // Placeholder algorithm: 50% of the difference between income and expenditure
-    const diff = income - expenditure;
-    return diff > 0 ? Math.round(diff * 0.5) : 0;
+    // Calculate Disposable Income (DI)
+    const di = income - expenditure;
+    
+    // Calculate Principal and Monthly Repayment (PMR) as 5% of income
+    const pmr = income * 0.05;
+    
+    // Calculate Debt Service Coverage Ratio (DSCR)
+    const dscr = di / pmr;
+    
+    // Decision: If DSCR >= 1, recommended limit is 2x income; otherwise 0
+    if (dscr >= 1) {
+      return Math.round(income * 2);
+    }
+    return 0;
   };
 
   const handleSubmit = () => {
@@ -33,14 +44,13 @@ const CreditLimitSection = () => {
   };
 
   const handleNext = () => {
-  if (!creditLimit || !selectedCard) {
-    alert("Please check eligibility and select a card type before proceeding.");
-    return;
-  }
+    if (!creditLimit || !selectedCard) {
+      alert("Please check eligibility and select a card type before proceeding.");
+      return;
+    }
 
     navigate('/application-form-01');
   };
-
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300 py-12 px-4">
