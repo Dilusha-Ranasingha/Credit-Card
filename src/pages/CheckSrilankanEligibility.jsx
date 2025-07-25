@@ -7,6 +7,13 @@ const CheckSrilankanEligibility = () => {
   const [mobile, setMobile] = useState('');
   const [errors, setErrors] = useState({});
 
+  // Mock in-memory data for NIC to mobile number mapping
+  const mockCustomerData = {
+    '940000000001': '0771234567', // NIC: mobile
+    '940000000002': '0712345678',
+    '940000000003': '0755555555',
+  };
+
   const navigate = useNavigate();
 
   // Validation helpers
@@ -31,10 +38,26 @@ const CheckSrilankanEligibility = () => {
 
   const handleProceed = () => {
     if (!validate()) return;
+
+    // Check if NIC exists in mock data
+    const dbMobile = mockCustomerData[nic];
+    if (!dbMobile) {
+      alert('NIC not found in database. Please contact support.');
+      return;
+    }
+
+    // Store data in localStorage
     localStorage.setItem('customerName', name);
     localStorage.setItem('customerNIC', nic);
     localStorage.setItem('customerMobile', mobile);
-    navigate('/exist-customer-detail');
+    localStorage.setItem('dbMobile', dbMobile); // Store the database mobile for /exist-customer-detail
+
+    // Navigate based on mobile number match
+    if (mobile === dbMobile) {
+      navigate('/add-nic');
+    } else {
+      navigate('/exist-customer-detail');
+    }
   };
 
   const handleSkip = () => {
