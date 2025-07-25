@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import platinum from '../assets/platinum.png';
 import signature from '../assets/signature.png';
 import Gold from '../assets/gold.png';
+import VIC from '../assets/VIC.png';
+import WMC from '../assets/WMC.png';
 import { useNavigate } from 'react-router-dom';
 
 const CreditLimitSection = () => {
@@ -106,7 +108,6 @@ const CreditLimitSection = () => {
               <ul className="space-y-2 text-sm text-gray-700">
                 <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 100,000</li>
                 <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
-                <li><span className="text-red-500 mr-2">•</span> Loan on card up to 75% of the limit</li>
               </ul>
             </div>
 
@@ -132,37 +133,63 @@ const CreditLimitSection = () => {
                 <span className="text-lg font-semibold text-gray-800">Visa Signature Card</span>
               </label>
               <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 100,000</li>
-                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
-                <li><span className="text-red-500 mr-2">•</span> Airport Lounge Access for you + 1</li>
+                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
+                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC Bank account on every transaction</li>
               </ul>
             </div>
 
-            {/* Gold */}
+            {/* WMC */}
             <div
               className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
-                selectedCard === 'gold' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                selectedCard === 'wmc' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
               }`}
-              onClick={() => setSelectedCard('gold')}
+              onClick={() => setSelectedCard('wmc')}
             >
               <div className="text-center mb-4">
-                <img src={Gold} alt="Visa Gold Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+                <img src={WMC} alt="Visa World Mastercard" className="w-full max-w-xs mx-auto h-48 object-contain" />
               </div>
               <label className="flex items-center mb-4">
                 <input
                   type="radio"
                   name="cardType"
-                  value="gold"
-                  checked={selectedCard === 'gold'}
+                  value="wmc"
+                  checked={selectedCard === 'wmc'}
                   onChange={(e) => setSelectedCard(e.target.value)}
                   className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
                 />
-                <span className="text-lg font-semibold text-gray-800">Visa Gold Card</span>
+                <span className="text-lg font-semibold text-gray-800">Visa World Mastercard</span>
               </label>
               <ul className="space-y-2 text-sm text-gray-700">
-                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 50,000</li>
+                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 500,000</li>
+                <li><span className="text-red-500 mr-2">•</span> 1.5% Unlimited CashBack into your DFCC account</li>
+                <li><span className="text-red-500 mr-2">•</span> 1% Unlimited</li>
+              </ul>
+            </div>
+
+            {/* VIC */}
+            <div
+              className={`border-2 p-6 rounded-xl cursor-pointer transition flex-1 ${
+                selectedCard === 'vic' ? 'border-red-500 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+              }`}
+              onClick={() => setSelectedCard('vic')}
+            >
+              <div className="text-center mb-4">
+                <img src={VIC} alt="Visa Infinite Card" className="w-full max-w-xs mx-auto h-48 object-contain" />
+              </div>
+              <label className="flex items-center mb-4">
+                <input
+                  type="radio"
+                  name="cardType"
+                  value="vic"
+                  checked={selectedCard === 'vic'}
+                  onChange={(e) => setSelectedCard(e.target.value)}
+                  className="mr-3 w-4 h-4 text-red-600 focus:ring-red-500"
+                />
+                <span className="text-lg font-semibold text-gray-800">Visa Infinite Card</span>
+              </label>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li><span className="text-red-500 mr-2">•</span> Starting Credit Limit from LKR 750,000</li>
                 <li><span className="text-red-500 mr-2">•</span> 1% Unlimited CashBack into your DFCC account</li>
-                <li><span className="text-red-500 mr-2">•</span> Loan on card up to 75% of the limit</li>
               </ul>
             </div>
           </div>
