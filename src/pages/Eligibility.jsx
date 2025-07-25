@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const YesSrilankan = () => {
+const Eligibility = () => {
   const [isAbove18, setIsAbove18] = useState(null);
   const [hasHighIncome, setHasHighIncome] = useState(null);
   const [isResident, setIsResident] = useState(true); // Default to Yes
@@ -37,7 +37,6 @@ const YesSrilankan = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-red-100 to-blue-300">
       <div className="bg-white p-8 rounded-xl shadow-xl max-w-xl w-full space-y-6">
-        <h2 className="text-2xl font-bold text-red-700 mb-2 text-center">Check Eligibility</h2>
 
         {/* Question 1 */}
         <div className="flex items-center justify-between">
@@ -179,4 +178,4 @@ const YesSrilankan = () => {
   );
 };
 
-export default YesSrilankan;
+export default Eligibility;

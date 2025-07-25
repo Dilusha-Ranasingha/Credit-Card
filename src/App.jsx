@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
-import YesSrilankan from './pages/YesSrilankan';
 import CheckSrilankanEligibility from './pages/CheckSrilankanEligibility';
 import ExistCustomerDetailCheck from './pages/ExistCustomerDetailCheck';
 import CreditLimitSection from './pages/CreditLimitSection';
@@ -14,6 +13,7 @@ import ApplicationForm04 from './pages/ApplicationForm04';
 import ApplicationForm05 from './pages/ApplicationForm05';
 import ApplicationForm06 from './pages/ApplicationForm06';
 import ApplicationForm07 from './pages/ApplicationForm07';
+import Eligibility from './pages/Eligibility';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/yes-srilankan" element={<YesSrilankan />} />
+              <Route path="/eligibility" element={<Eligibility />} />
               <Route path="/check-srilankan-eligibility" element={<CheckSrilankanEligibility />} />
               <Route path="/exist-customer-detail" element={<ExistCustomerDetailCheck />} />
               <Route path="/credit-limit-select" element={<CreditLimitSection />} />

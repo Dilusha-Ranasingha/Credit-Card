@@ -13,7 +13,7 @@ const Home = () => {
         </p>
         <button
           className="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition"
-          onClick={() => navigate('/yes-srilankan')}
+          onClick={() => navigate('/eligibility')}
         >
           Get Started
         </button>
