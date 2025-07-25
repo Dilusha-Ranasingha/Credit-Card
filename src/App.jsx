@@ -14,6 +14,7 @@ import ApplicationForm05 from './pages/ApplicationForm05';
 import ApplicationForm06 from './pages/ApplicationForm06';
 import ApplicationForm07 from './pages/ApplicationForm07';
 import Eligibility from './pages/Eligibility';
+import AddNIC from './pages/AddNIC';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/eligibility" element={<Eligibility />} />
               <Route path="/check-eligibility" element={<CheckSrilankanEligibility />} />
+              <Route path="/add-nic" element={<AddNIC />} />
               <Route path="/exist-customer-detail" element={<ExistCustomerDetailCheck />} />
               <Route path="/credit-limit-select" element={<CreditLimitSection />} />
               <Route path="/application-form-01" element={<ApplicationForm01 />} />
