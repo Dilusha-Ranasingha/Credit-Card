@@ -74,6 +74,10 @@ const ApplicationForm01 = () => {
           </div>
         </div>
 
+        <p className="text-gray-500 text-center text-base mt-4 mb-2 font-medium">
+          "We would like to know some reference details of an alternative contact person"
+        </p>
+
         <h3 className="text-lg font-semibold text-gray-800">Reference Contact</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <input name="refName" onChange={handleChange} type="text" placeholder="Name *" className="p-3 border rounded-lg" />
@@ -83,6 +87,11 @@ const ApplicationForm01 = () => {
           </div>
           <input name="refRelation" onChange={handleChange} type="text" placeholder="Relationship *" className="p-3 border rounded-lg" />
         </div>
+
+        <p className="text-red-600 text-sm text-center font-medium mt-4">
+          By providing the details of the referee above, you confirm that the individual is aware and has consented to be listed as a referee.<br />
+          You also authorize DFCC Bank to contact them, if required, for verification or reference purposes related to this application.
+        </p>
 
         <div className="text-center pt-6">
           <button onClick={handleNext} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition font-semibold text-lg">
