@@ -1,26 +1,27 @@
 import React from 'react';
+import footerImage from '../../assets/footerimage.png'; // Adjust the path if needed
 
 const Footer = () => (
   <footer
-  style={{
-    width: '100%',
-    maxWidth: '100%',
-    boxSizing: 'border-box',
-    background: '#1e293b',
-    color: '#fff',
-    padding: '16px 32px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    margin: 0,
-    position: 'static',
-    overflow: 'hidden'
-  }}>
-    <div className="max-w-[1200px] mx-auto">
-      <span className="text-sm tracking-wide">
-        © {new Date().getFullYear()} DFCC Bank. All rights reserved.
-      </span>
-    </div>
+    style={{
+      width: '100%',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
+      background: '#1e293b',
+      padding: 0,
+      margin: 0,
+      position: 'static',
+      overflow: 'hidden',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <img
+      src={footerImage}
+      alt="Footer"
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
   </footer>
 );
 
