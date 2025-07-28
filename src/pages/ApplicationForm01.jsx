@@ -71,6 +71,20 @@ const ApplicationForm01 = () => {
               <input type="checkbox" name="govMember" onChange={(e) => setFormData((prev) => ({ ...prev, govMember: e.target.checked }))} />
               <span>Yes</span>
             </label>
+            {formData.govMember && (
+              <select
+                name="govSpecify"
+                onChange={handleChange}
+                className="p-3 border rounded-lg ml-4"
+                defaultValue=""
+              >
+                <option value="">Please specify *</option>
+                <option value="Family Member">Family Member</option>
+                <option value="Business Associate">Business Associate</option>
+                <option value="Business Partner">Business Partner</option>
+                <option value="Other">Other</option>
+              </select>
+            )}
           </div>
         </div>
 
