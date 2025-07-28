@@ -55,6 +55,25 @@ const ApplicationForm03 = () => {
               <span>Yes</span>
             </label>
           </div>
+          {formData.otherIncome && (
+            <>
+              <input
+                name="annualOtherIncome"
+                onChange={handleChange}
+                type="number"
+                min="0"
+                placeholder="Annual other income *"
+                className="p-3 border rounded-lg"
+              />
+              <select name="sourceOfOtherIncome" onChange={handleChange} className="p-3 border rounded-lg">
+                <option value="">Source of Other Income *</option>
+                <option value="Earnings from Business Interest">Earnings from Business Interest</option>
+                <option value="Investment Income">Investment Income</option>
+                <option value="Deposit Interest income">Deposit Interest income</option>
+                <option value="Other">Other</option>
+              </select>
+            </>
+          )}
           <select name="cardAddress" onChange={handleChange} className="p-3 border rounded-lg">
             <option value="">To which address would you wish to receive th Credit Card ?</option>
             <option value="Permanent">Permanent</option>
