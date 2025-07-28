@@ -46,8 +46,34 @@ const ApplicationForm03 = () => {
             <option value="Contract">Contract</option>
           </select>
           <input name="position" onChange={handleChange} type="text" placeholder="Position/Job title *" className="p-3 border rounded-lg" />
-          <input name="monthlyIncome" onChange={handleChange} type="number" placeholder="Rs. Monthly Income *" className="p-3 border rounded-lg" />
-          <input name="allowances" onChange={handleChange} type="number" placeholder="Variable Allowances (Monthly) *" className="p-3 border rounded-lg" />
+          <input
+            name="monthlyIncome"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "" || (/^\d+$/.test(value) && Number(value) > 0)) {
+                handleChange(e);
+              }
+            }}
+            type="number"
+            min="1"
+            placeholder="Rs. Monthly Income *"
+            className="p-3 border rounded-lg"
+            value={formData.monthlyIncome || ""}
+          />
+          <input
+            name="allowances"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "" || (/^\d+$/.test(value) && Number(value) > 0)) {
+                handleChange(e);
+              }
+            }}
+            type="number"
+            min="1"
+            placeholder="Variable Allowances (Monthly) *"
+            className="p-3 border rounded-lg"
+            value={formData.allowances || ""}
+          />
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Do you have any other income?</p>
             <label className="flex items-center gap-2">
@@ -56,23 +82,43 @@ const ApplicationForm03 = () => {
             </label>
           </div>
           {formData.otherIncome && (
-            <>
+            <div className="md:col-span-2 flex gap-4">
               <input
                 name="annualOtherIncome"
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === "" || (/^\d+$/.test(value) && Number(value) > 0)) {
+                    handleChange(e);
+                  }
+                }}
                 type="number"
-                min="0"
+                min="1"
                 placeholder="Annual other income *"
-                className="p-3 border rounded-lg"
+                className="p-3 border rounded-lg flex-1"
+                value={formData.annualOtherIncome || ""}
               />
-              <select name="sourceOfOtherIncome" onChange={handleChange} className="p-3 border rounded-lg">
-                <option value="">Source of Other Income *</option>
+              <select
+                name="sourceOfOtherIncome"
+                onChange={handleChange}
+                className="p-3 border rounded-lg flex-1"
+                value={formData.sourceOfOtherIncome || ""}
+              >
+                <option value="">Source *</option>
                 <option value="Earnings from Business Interest">Earnings from Business Interest</option>
                 <option value="Investment Income">Investment Income</option>
                 <option value="Deposit Interest income">Deposit Interest income</option>
                 <option value="Other">Other</option>
               </select>
-            </>
+              {formData.sourceOfOtherIncome === 'Other' && (
+                <input
+                  name="otherIncomeDescription"
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="Describe source *"
+                  className="p-3 border rounded-lg flex-1"
+                />
+              )}
+            </div>
           )}
           <select name="cardAddress" onChange={handleChange} className="p-3 border rounded-lg">
             <option value="">To which address would you wish to receive th Credit Card ?</option>
