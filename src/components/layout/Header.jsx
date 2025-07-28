@@ -2,6 +2,8 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import headerImage from '../../assets/headerimage.png';
 
+const HEADER_HEIGHT = 72; // Adjust if your header height changes
+
 const Header = () => (
   <>
     <header style={{
@@ -15,8 +17,12 @@ const Header = () => (
       alignItems: 'center',
       justifyContent: 'space-between',
       margin: 0,
-      position: 'static',
-      overflow: 'hidden'
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      zIndex: 1000,
+      overflow: 'hidden',
+      height: `${HEADER_HEIGHT}px`
     }}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <img
@@ -39,7 +45,8 @@ const Header = () => (
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: '#f5f5f5'
+      background: '#f5f5f5',
+      marginTop: `${HEADER_HEIGHT}px`
     }}>
       <img
         src={headerImage}
