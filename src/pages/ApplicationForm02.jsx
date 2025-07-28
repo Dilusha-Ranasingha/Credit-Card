@@ -37,8 +37,6 @@ const ApplicationForm02 = () => {
             <option value="Rented">Rented</option>
           </select>
           <input name="city" onChange={handleChange} type="text" placeholder="City *" className="p-3 border rounded-lg" />
-          <input name="residentialAddress" onChange={handleChange} type="text" placeholder="Residential Address *" className="p-3 border rounded-lg" />
-          <input name="residentialCity" onChange={handleChange} type="text" placeholder="Residential City *" className="p-3 border rounded-lg" />
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Residential address same as the permanent address ?</p>
             <label className="flex items-center gap-2">
@@ -46,6 +44,12 @@ const ApplicationForm02 = () => {
               <span>Yes</span>
             </label>
           </div>
+          {!formData.sameAddress && (
+            <>
+              <input name="residentialAddress" onChange={handleChange} type="text" placeholder="Residential Address *" className="p-3 border rounded-lg" />
+              <input name="residentialCity" onChange={handleChange} type="text" placeholder="Residential City *" className="p-3 border rounded-lg" />
+            </>
+          )}
           <input name="mobile" onChange={handleChange} type="text" placeholder="Mobile Number *" className="p-3 border rounded-lg" />
           <input name="landlineHome" onChange={handleChange} type="text" placeholder="Landline-Home *" className="p-3 border rounded-lg" />
           <input name="officeNo" onChange={handleChange} type="text" placeholder="Office no." className="p-3 border rounded-lg" />
