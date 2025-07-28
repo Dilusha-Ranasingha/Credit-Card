@@ -53,7 +53,7 @@ const ProgressIndicator = ({ steps, currentStep }) => {
                 {index + 1 < currentStep
                   ? 'Completed'
                   : index + 1 === currentStep
-                  ? 'Progress'
+                  ? 'In progress'
                   : 'Pending'
                 }
               </div>
