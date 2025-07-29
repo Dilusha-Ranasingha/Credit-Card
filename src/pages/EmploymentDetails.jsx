@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProgressIndicator from '../components/ProgressIndicator';
 import { useNavigate } from 'react-router-dom';
 
-const ApplicationForm03 = () => {
+const EmploymentDetails = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const steps = [
@@ -16,11 +16,11 @@ const ApplicationForm03 = () => {
   };
 
   const handleNext = () => {
-    navigate('/application-form-04');
+    navigate('/cashback-details');
   };
 
   const handlePrevious = () => {
-    navigate('/application-form-02');
+    navigate('/contact-details');
   };
 
   return (
@@ -147,4 +147,4 @@ const ApplicationForm03 = () => {
   );
 };
 
-export default ApplicationForm03;
+export default EmploymentDetails;

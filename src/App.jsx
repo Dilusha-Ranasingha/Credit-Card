@@ -6,13 +6,13 @@ import Home from './pages/Home';
 import CheckSrilankanEligibility from './pages/CheckSrilankanEligibility';
 import ExistCustomerDetailCheck from './pages/ExistCustomerDetailCheck';
 import CreditLimitSection from './pages/CreditLimitSection';
-import ApplicationForm01 from './pages/ApplicationForm01';
-import ApplicationForm02 from './pages/ApplicationForm02';
-import ApplicationForm03 from './pages/ApplicationForm03';
-import ApplicationForm04 from './pages/ApplicationForm04';
-import ApplicationForm05 from './pages/ApplicationForm05';
-import ApplicationForm06 from './pages/ApplicationForm06';
-import ApplicationForm07 from './pages/ApplicationForm07';
+import PersonalDetails from './pages/PersonalDetails';
+import ContactDetails from './pages/ContactDetails';
+import EmploymentDetails from './pages/EmploymentDetails';
+import CashbackDetails from './pages/CashbackDetails';
+import SupplementaryCard from './pages/SupplementaryCard';
+import Almostthere from './pages/Almostthere';
+import IdentityVerification from './pages/IdentityVerification';
 import Eligibility from './pages/Eligibility';
 import AddNIC from './pages/AddNIC';
 
@@ -29,13 +29,13 @@ function App() {
               <Route path="/add-nic" element={<AddNIC />} />
               <Route path="/exist-customer-detail" element={<ExistCustomerDetailCheck />} />
               <Route path="/credit-limit-select" element={<CreditLimitSection />} />
-              <Route path="/application-form-01" element={<ApplicationForm01 />} />
-              <Route path="/application-form-02" element={<ApplicationForm02 />} />
-              <Route path="/application-form-03" element={<ApplicationForm03 />} />
-              <Route path="/application-form-04" element={<ApplicationForm04 />} />
-              <Route path="/application-form-05" element={<ApplicationForm05 />} />
-              <Route path="/application-form-06" element={<ApplicationForm06 />} />
-              <Route path="/application-form-07" element={<ApplicationForm07 />} />
+              <Route path="/personal-details" element={<PersonalDetails />} />
+              <Route path="/contact-details" element={<ContactDetails />} />
+              <Route path="/employment-details" element={<EmploymentDetails />} />
+              <Route path="/cashback-details" element={<CashbackDetails />} />
+              <Route path="/supplementary-card" element={<SupplementaryCard />} />
+              <Route path="/almost-there" element={<Almostthere />} />
+              <Route path="/identity-verification" element={<IdentityVerification />} />
             </Routes>
           </main>
         <Footer />

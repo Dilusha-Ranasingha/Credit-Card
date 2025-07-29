@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProgressIndicator from '../components/ProgressIndicator';
 import { useNavigate } from 'react-router-dom';
 
-const ApplicationForm07 = () => {
+const IdentityVerification = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const steps = [
@@ -11,7 +11,7 @@ const ApplicationForm07 = () => {
   const currentStep = 7;
 
   const handlePrevious = () => {
-    navigate('/application-form-06');
+    navigate('/almost-there');
   };
 
   const handleSubmit = () => {
@@ -41,4 +41,4 @@ const ApplicationForm07 = () => {
   );
 };
 
-export default ApplicationForm07;
+export default IdentityVerification;

@@ -60,7 +60,7 @@ const CreditLimitSection = () => {
       return;
     }
 
-    navigate('/application-form-01');
+    navigate('/personal-details');
   };
 
   // Determine which cards to display based on income scale
