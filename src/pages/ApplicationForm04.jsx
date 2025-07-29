@@ -33,26 +33,86 @@ const ApplicationForm04 = () => {
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Would you like to nominate an account for this amazing promotion?</p>
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="nominateAccount" onChange={(e) => setFormData((prev) => ({ ...prev, nominateAccount: e.target.checked }))} />
+              <input
+                type="checkbox"
+                name="nominateAccount"
+                checked={!!formData.nominateAccount}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    nominateAccount: e.target.checked,
+                    // Optionally clear dfccAccount if unchecked
+                    ...(e.target.checked ? {} : { dfccAccount: "" })
+                  }))
+                }
+              />
               <span>Yes</span>
             </label>
           </div>
-          <input name="dfccAccount" onChange={handleChange} type="text" placeholder="DFCC Account Number *" className="p-3 border rounded-lg" />
+          {formData.nominateAccount && (
+            <>
+              <input
+                name="dfccAccount"
+                value={formData.dfccAccount || ""}
+                onChange={handleChange}
+                type="text"
+                placeholder="DFCC Account Number *"
+                className="p-3 border rounded-lg"
+              />
+              <div className="flex justify-start w-full md:col-span-2">
+                <span className="text-gray-500 font-semibold">or</span>
+              </div>
+            </>
+          )}
           <div className="md:col-span-2 flex items-center gap-4">
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="creditToAccount" onChange={(e) => setFormData((prev) => ({ ...prev, creditToAccount: e.target.checked }))} />
+              <input
+                type="checkbox"
+                name="creditToAccount"
+                checked={!!formData.creditToAccount}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    creditToAccount: e.target.checked
+                  }))
+                }
+              />
               <span>Credit to DFCC Credit card Account</span>
             </label>
           </div>
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Would you like to setup an automatic settlement for the credit card from DFCC Bank account?</p>
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="autoSettlement" onChange={(e) => setFormData((prev) => ({ ...prev, autoSettlement: e.target.checked }))} />
+              <input
+                type="checkbox"
+                name="autoSettlement"
+                checked={!!formData.autoSettlement}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    autoSettlement: e.target.checked
+                  }))
+                }
+              />
               <span>Yes</span>
             </label>
           </div>
-          <input name="accountNo" onChange={handleChange} type="text" placeholder="Account No *" className="p-3 border rounded-lg" />
-          <input name="debitPercentage" onChange={handleChange} type="number" placeholder="% *" className="p-3 border rounded-lg" />
+          <input
+            name="accountNo"
+            value={formData.accountNo || ""}
+            onChange={handleChange}
+            type="text"
+            placeholder="Account No *"
+            className="p-3 border rounded-lg"
+          />
+          <input
+            name="debitPercentage"
+            value={formData.debitPercentage || ""}
+            onChange={handleChange}
+            type="number"
+            placeholder="% *"
+            className="p-3 border rounded-lg"
+          />
         </div>
 
         <div className="text-center pt-6">
