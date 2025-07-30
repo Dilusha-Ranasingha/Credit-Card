@@ -33,42 +33,73 @@ const SupplementaryCard = () => {
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Do you wish to offer supplementary credit card to an immediate family member over 18 years old ?</p>
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="supplementaryCard" onChange={(e) => setFormData((prev) => ({ ...prev, supplementaryCard: e.target.checked }))} />
+              <input
+                type="checkbox"
+                name="supplementaryCard"
+                checked={!!formData.supplementaryCard}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    supplementaryCard: e.target.checked,
+                  }))
+                }
+              />
               <span>Yes</span>
             </label>
           </div>
-          <select name="relationship" onChange={handleChange} className="p-3 border rounded-lg">
-            <option value="">Spouse</option>
-            <option value="Son">Son</option>
-            <option value="Daughter">Daughter</option>
-          </select>
-          <input name="nic" onChange={handleChange} type="text" placeholder="NIC No." className="p-3 border rounded-lg" />
-          <input name="previousNic" onChange={handleChange} type="text" placeholder="Previous NIC Number (if applicable)" className="p-3 border rounded-lg" />
-          <input name="surname" onChange={handleChange} type="text" placeholder="Surname" className="p-3 border rounded-lg" />
-          <input name="otherNames" onChange={handleChange} type="text" placeholder="Other Names" className="p-3 border rounded-lg" />
-          <input name="nameOnCard" onChange={handleChange} type="text" placeholder="Names to appear on the card" className="p-3 border rounded-lg" />
-          <input name="dob" onChange={handleChange} type="date" placeholder="25/05/1950" className="p-3 border rounded-lg" />
-          <select name="gender" onChange={handleChange} className="p-3 border rounded-lg">
-            <option value="">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          <select name="nationality" onChange={handleChange} className="p-3 border rounded-lg">
-            <option value="">Sri Lankan</option>
-            <option value="Other">Other</option>
-          </select>
-          <div className="md:col-span-2 flex items-center gap-4">
-            <p className="text-gray-700 text-sm">Would you like your credit card to be delivered to the same address as your primary card</p>
-            <label className="flex items-center gap-2">
-              <input type="checkbox" name="sameDelivery" onChange={(e) => setFormData((prev) => ({ ...prev, sameDelivery: e.target.checked }))} />
-              <span>No</span>
-            </label>
-          </div>
-          <input name="address" onChange={handleChange} type="text" placeholder="Address" className="p-3 border rounded-lg" />
-          <input name="city" onChange={handleChange} type="text" placeholder="City" className="p-3 border rounded-lg" />
-          <input name="mobile" onChange={handleChange} type="text" placeholder="Mobile Number" className="p-3 border rounded-lg" />
-          <input name="landlineHome" onChange={handleChange} type="text" placeholder="Landline-Home" className="p-3 border rounded-lg" />
-          <input name="officeNumber" onChange={handleChange} type="text" placeholder="Office Number*" className="p-3 border rounded-lg" />
-          <input name="email" onChange={handleChange} type="email" placeholder="Email ID*" className="p-3 border rounded-lg" />
+
+          {formData.supplementaryCard && (
+            <>
+              <select name="relationship" onChange={handleChange} className="p-3 border rounded-lg" value={formData.relationship || ""}>
+                <option value="" disabled>Relationship</option>
+                <option value="Spouse">Spouse</option>
+                <option value="Son">Son</option>
+                <option value="Daughter">Daughter</option>
+              </select>
+              <input name="nic" onChange={handleChange} type="text" placeholder="NIC No." className="p-3 border rounded-lg" value={formData.nic || ""} />
+              <input name="previousNic" onChange={handleChange} type="text" placeholder="Previous NIC Number (if applicable)" className="p-3 border rounded-lg" value={formData.previousNic || ""} />
+              <input name="surname" onChange={handleChange} type="text" placeholder="Surname" className="p-3 border rounded-lg" value={formData.surname || ""} />
+              <input name="otherNames" onChange={handleChange} type="text" placeholder="Other Names" className="p-3 border rounded-lg" value={formData.otherNames || ""} />
+              <input name="nameOnCard" onChange={handleChange} type="text" placeholder="Names to appear on the card" className="p-3 border rounded-lg" value={formData.nameOnCard || ""} />
+              <input name="dob" onChange={handleChange} type="date" placeholder="25/05/1950" className="p-3 border rounded-lg" value={formData.dob || ""} />
+              <select name="gender" onChange={handleChange} className="p-3 border rounded-lg" value={formData.gender || ""}>
+                <option value="">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <select name="nationality" onChange={handleChange} className="p-3 border rounded-lg" value={formData.nationality || ""}>
+                <option value="">Sri Lankan</option>
+                <option value="Other">Other</option>
+              </select>
+              <div className="md:col-span-2 flex items-center gap-4">
+                <p className="text-gray-700 text-sm">Would you like your credit card to be delivered to the same address as your primary card</p>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="sameDelivery"
+                    checked={!!formData.sameDelivery}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        sameDelivery: e.target.checked,
+                      }))
+                    }
+                  />
+                  <span>No</span>
+                </label>
+              </div>
+              <input name="address" onChange={handleChange} type="text" placeholder="Address" className="p-3 border rounded-lg" value={formData.address || ""} />
+              <input name="city" onChange={handleChange} type="text" placeholder="City" className="p-3 border rounded-lg" value={formData.city || ""} />
+              <input name="mobile" onChange={handleChange} type="text" placeholder="Mobile Number" className="p-3 border rounded-lg" value={formData.mobile || ""} />
+              <input name="landlineHome" onChange={handleChange} type="text" placeholder="Landline-Home" className="p-3 border rounded-lg" value={formData.landlineHome || ""} />
+              <input name="officeNumber" onChange={handleChange} type="text" placeholder="Office Number*" className="p-3 border rounded-lg" value={formData.officeNumber || ""} />
+              <input name="email" onChange={handleChange} type="email" placeholder="Email ID*" className="p-3 border rounded-lg" value={formData.email || ""} />
+              <div className="md:col-span-2">
+                <p className="text-gray-600 text-sm mt-2">
+                  SMS alerts and email alerts will be sent to the mobile number and email address provided above respectively.
+                </p>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="text-center pt-6">
