@@ -242,7 +242,10 @@ const CreditLimitSection = () => {
                 name="affinity"
                 value="yes"
                 checked={affinityCard === 'yes'}
-                onChange={(e) => setAffinityCard(e.target.value)}
+                onChange={(e) => {
+                  setAffinityCard(e.target.value);
+                  localStorage.setItem('affinityCard', e.target.value);
+                }}
                 className="mr-2 w-4 h-4 text-red-600 focus:ring-red-500"
               />
               <span className="text-gray-700">Yes</span>
@@ -253,7 +256,10 @@ const CreditLimitSection = () => {
                 name="affinity"
                 value="no"
                 checked={affinityCard === 'no'}
-                onChange={(e) => setAffinityCard(e.target.value)}
+                onChange={(e) => {
+                  setAffinityCard(e.target.value);
+                  localStorage.setItem('affinityCard', e.target.value);
+                }}
                 className="mr-2 w-4 h-4 text-red-600 focus:ring-red-500"
               />
               <span className="text-gray-700">No</span>

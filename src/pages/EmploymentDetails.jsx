@@ -3,7 +3,9 @@ import ProgressIndicator from '../components/ProgressIndicator';
 import { useNavigate } from 'react-router-dom';
 
 const EmploymentDetails = () => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    otherIncome: localStorage.getItem('otherIncome') || 'no',
+  });
   const navigate = useNavigate();
   const steps = [
     "Personal Details", "Contact Details", "Employment Details", "Cashback Details", "Supplementary Card", "Almost there!", "Identity Verification"
@@ -12,7 +14,20 @@ const EmploymentDetails = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const newData = { ...prev, [name]: value };
+      if (name === 'annualOtherIncome' || name === 'sourceOfOtherIncome' || name === 'otherIncomeDescription') {
+        localStorage.setItem(name, value);
+      }
+      return newData;
+    });
+  };
+
+  const handleOtherIncomeChange = (e) => {
+    const isChecked = e.target.checked;
+    const newValue = isChecked ? 'yes' : 'no';
+    setFormData((prev) => ({ ...prev, otherIncome: newValue }));
+    localStorage.setItem('otherIncome', newValue);
   };
 
   const handleNext = () => {
@@ -77,11 +92,16 @@ const EmploymentDetails = () => {
           <div className="md:col-span-2 flex items-center gap-4">
             <p className="text-gray-700 text-sm">Do you have any other income?</p>
             <label className="flex items-center gap-2">
-              <input type="checkbox" name="otherIncome" onChange={(e) => setFormData((prev) => ({ ...prev, otherIncome: e.target.checked }))} />
+              <input
+                type="checkbox"
+                name="otherIncome"
+                checked={formData.otherIncome === 'yes'}
+                onChange={handleOtherIncomeChange}
+              />
               <span>Yes</span>
             </label>
           </div>
-          {formData.otherIncome && (
+          {formData.otherIncome === 'yes' && (
             <div className="md:col-span-2 flex gap-4">
               <input
                 name="annualOtherIncome"
@@ -116,6 +136,7 @@ const EmploymentDetails = () => {
                   type="text"
                   placeholder="Describe source *"
                   className="p-3 border rounded-lg flex-1"
+                  value={formData.otherIncomeDescription || ""}
                 />
               )}
             </div>

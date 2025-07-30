@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload } from 'lucide-react';
 import ProgressIndicator from '../components/ProgressIndicator';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,30 @@ const Almostthere = () => {
     "Personal Details", "Contact Details", "Employment Details", "Cashback Details", "Supplementary Card", "Almost there!", "Identity Verification"
   ];
   const currentStep = 6;
+
+  useEffect(() => {
+    const storedOtherIncome = localStorage.getItem('otherIncome') || 'no';
+    const storedAffinityCard = localStorage.getItem('affinityCard') || 'no';
+    // Handle typos in localStorage keys
+    const storedAnnualOtherIncome = localStorage.getItem('annualOtherlncome') || localStorage.getItem('annualOtherIncome') || '';
+    const storedSourceOfOtherIncome = localStorage.getItem('sourceOfOtherlncome') || localStorage.getItem('sourceOfOtherIncome') || '';
+    const storedOtherIncomeDescription = localStorage.getItem('otherIncomeDescription') || '';
+    setFormData((prev) => ({
+      ...prev,
+      otherIncome: storedOtherIncome,
+      affinityCard: storedAffinityCard,
+      annualOtherIncome: storedAnnualOtherIncome,
+      sourceOfOtherIncome: storedSourceOfOtherIncome,
+      otherIncomeDescription: storedOtherIncomeDescription,
+    }));
+    console.log('Local Storage Data:', {
+      otherIncome: storedOtherIncome,
+      affinityCard: storedAffinityCard,
+      annualOtherIncome: storedAnnualOtherIncome,
+      sourceOfOtherIncome: storedSourceOfOtherIncome,
+      otherIncomeDescription: storedOtherIncomeDescription,
+    });
+  }, []);
 
   const handleChange = (e) => {
     const { name, files, value } = e.target;
@@ -52,6 +76,45 @@ const Almostthere = () => {
     </div>
   );
 
+  const OtherIncomeProofSection = () => (
+    <div className="space-y-6">
+      <h3 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+        Other Income Proof
+      </h3>
+      <div className="max-w-md">
+        <div className="relative">
+          <input
+            type="file"
+            name="otherIncomeProof"
+            onChange={handleChange}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          />
+          <div className="flex items-center justify-between px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-red-400 hover:bg-red-50 transition-colors cursor-pointer">
+            <span className="text-gray-500 text-sm">Browse</span>
+            <Upload className="w-5 h-5 text-gray-400" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const MemberIDSection = () => (
+    <div className="space-y-6">
+      <h3 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
+        Member ID
+      </h3>
+      <div className="max-w-md">
+        <input
+          name="memberId"
+          onChange={handleChange}
+          type="text"
+          placeholder="Member ID *"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+        />
+      </div>
+    </div>
+  );
+
   return (
     <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
@@ -88,26 +151,16 @@ const Almostthere = () => {
             </div>
           </div>
 
-          {/* Other Income Proof Section */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-medium text-gray-900 border-b border-gray-200 pb-2">
-              Other Income Proof
-            </h3>
-            <div className="max-w-md">
-              <div className="relative">
-                <input
-                  type="file"
-                  name="otherIncomeProof"
-                  onChange={handleChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                />
-                <div className="flex items-center justify-between px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-red-400 hover:bg-red-50 transition-colors cursor-pointer">
-                  <span className="text-gray-500 text-sm">Browse</span>
-                  <Upload className="w-5 h-5 text-gray-400" />
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Conditional Sections */}
+          {formData.otherIncome === 'no' && formData.affinityCard === 'no' && null}
+          {formData.otherIncome === 'yes' && formData.affinityCard === 'no' && <OtherIncomeProofSection />}
+          {formData.otherIncome === 'no' && formData.affinityCard === 'yes' && <MemberIDSection />}
+          {formData.otherIncome === 'yes' && formData.affinityCard === 'yes' && (
+            <>
+              <OtherIncomeProofSection />
+              <MemberIDSection />
+            </>
+          )}
 
           {/* Miscellaneous Attachments Section */}
           <div className="space-y-6">
