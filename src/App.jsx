@@ -15,6 +15,7 @@ import Almostthere from './pages/Almostthere';
 import IdentityVerification from './pages/IdentityVerification';
 import Eligibility from './pages/Eligibility';
 import AddNIC from './pages/AddNIC';
+import NewCashbackDetails from './pages/NewCustomer/NewCashbackDetails';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Route path="/supplementary-card" element={<SupplementaryCard />} />
               <Route path="/almost-there" element={<Almostthere />} />
               <Route path="/identity-verification" element={<IdentityVerification />} />
+              <Route path="/new-cashback-details" element={<NewCashbackDetails />} />
             </Routes>
           </main>
         <Footer />
