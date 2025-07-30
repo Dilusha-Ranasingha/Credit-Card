@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const CreditLimitSection = () => {
   const [creditLimit, setCreditLimit] = useState('');
   const [selectedCard, setSelectedCard] = useState('');
-  const [affinityCard, setAffinityCard] = useState('no');
+  const [affinityCard, setAffinityCard] = useState(localStorage.getItem('affinityCard') || 'no');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [income, setIncome] = useState(100000);
   const [expenditure, setExpenditure] = useState(50000);
