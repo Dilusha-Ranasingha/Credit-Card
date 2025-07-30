@@ -16,106 +16,66 @@ const NewCashbackDetails = () => {
   };
 
   const handleNext = () => {
-    navigate('/application-form-05');
+    navigate('/#');
   };
 
   const handlePrevious = () => {
-    navigate('/application-form-03');
+    navigate('/#');
   };
 
   return (
     <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
         <ProgressIndicator steps={steps} currentStep={currentStep} />
-        <h2 className="text-2xl font-bold text-red-700 text-center mb-4">Here's the best thing about DFCC credit cards</h2>
+        <h2 className="text-2xl font-bold text-red-700 mb-4 text-center">Here's the best thing about DFCC credit cards</h2>
+        <p className="text-gray-700 text-left">
+          If you maintain a DFCC Bank account, 1% of the monthly credit card spend will be credited to a nominated account.
+        </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="md:col-span-2">
+            <p className="text-gray-700 text-left">
+              Since you're a new customer, your cashback will be credited to your DFCC credit card by default.<br />
+              Want it to go to a DFCC account instead? Just click below!
+            </p>
+          </div>
           <div className="md:col-span-2 flex items-center gap-4">
-            <p className="text-gray-700 text-sm">Would you like to nominate an account for this amazing promotion?</p>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="nominateAccount"
-                checked={!!formData.nominateAccount}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    nominateAccount: e.target.checked,
-                    // Optionally clear dfccAccount if unchecked
-                    ...(e.target.checked ? {} : { dfccAccount: "" })
-                  }))
-                }
-              />
-              <span>Yes</span>
+            <input
+              type="checkbox"
+              id="nominateAccount"
+              name="nominateAccount"
+              checked={formData.nominateAccount || false}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  nominateAccount: e.target.checked,
+                }))
+              }
+              className="mr-2 h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+            />
+            <label htmlFor="nominateAccount" className="text-gray-800 cursor-pointer">
+              I want to nominate a DFCC account to receive my cashback.
             </label>
           </div>
           {formData.nominateAccount && (
-            <>
-              <input
-                name="dfccAccount"
-                value={formData.dfccAccount || ""}
-                onChange={handleChange}
-                type="text"
-                placeholder="DFCC Account Number *"
-                className="p-3 border rounded-lg"
-              />
-              <div className="flex justify-start w-full md:col-span-2">
-                <span className="text-gray-500 font-semibold">or</span>
-              </div>
-            </>
+            <input
+              type="text"
+              name="dfccAccountNumber"
+              placeholder="DFCC Account Number*"
+              value={formData.dfccAccountNumber || ''}
+              onChange={handleChange}
+              className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              required
+            />
           )}
-          <div className="md:col-span-2 flex items-center gap-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="creditToAccount"
-                checked={!!formData.creditToAccount}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    creditToAccount: e.target.checked
-                  }))
-                }
-              />
-              <span>Credit to DFCC Credit card Account</span>
-            </label>
+          <div className="md:col-span-2">
+            <p className="text-gray-700 text-left">
+              The 1% of the supplementary card spend will be credited to the same account mentioned above.<br />Card Settlement
+            </p>
           </div>
-          <div className="md:col-span-2 flex items-center gap-4">
-            <p className="text-gray-700 text-sm">Would you like to setup an automatic settlement for the credit card from DFCC Bank account?</p>
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="autoSettlement"
-                checked={!!formData.autoSettlement}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    autoSettlement: e.target.checked
-                  }))
-                }
-              />
-              <span>Yes</span>
-            </label>
-          </div>
-          <input
-            name="accountNo"
-            value={formData.accountNo || ""}
-            onChange={handleChange}
-            type="text"
-            placeholder="Account No *"
-            className="p-3 border rounded-lg"
-          />
-          <input
-            name="debitPercentage"
-            value={formData.debitPercentage || ""}
-            onChange={handleChange}
-            type="number"
-            placeholder="% *"
-            className="p-3 border rounded-lg"
-          />
         </div>
 
-        <div className="text-center pt-6">
+        <div className="pt-6 flex justify-center w-full">
           <button onClick={handlePrevious} className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition font-semibold text-lg">
             Previous
           </button>
