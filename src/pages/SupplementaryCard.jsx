@@ -87,8 +87,12 @@ const SupplementaryCard = () => {
                   <span>No</span>
                 </label>
               </div>
-              <input name="address" onChange={handleChange} type="text" placeholder="Address" className="p-3 border rounded-lg" value={formData.address || ""} />
-              <input name="city" onChange={handleChange} type="text" placeholder="City" className="p-3 border rounded-lg" value={formData.city || ""} />
+              {!formData.sameDelivery && (
+                <>
+                  <input name="address" onChange={handleChange} type="text" placeholder="Address" className="p-3 border rounded-lg" value={formData.address || ""} />
+                  <input name="city" onChange={handleChange} type="text" placeholder="City" className="p-3 border rounded-lg" value={formData.city || ""} />
+                </>
+              )}
               <input name="mobile" onChange={handleChange} type="text" placeholder="Mobile Number" className="p-3 border rounded-lg" value={formData.mobile || ""} />
               <input name="landlineHome" onChange={handleChange} type="text" placeholder="Landline-Home" className="p-3 border rounded-lg" value={formData.landlineHome || ""} />
               <input name="officeNumber" onChange={handleChange} type="text" placeholder="Office Number*" className="p-3 border rounded-lg" value={formData.officeNumber || ""} />
