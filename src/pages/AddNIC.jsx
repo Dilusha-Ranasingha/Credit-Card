@@ -64,58 +64,32 @@ const AddNIC = () => {
                 />
 
                 {/* Upload New ID Images */}
-                {!bothImagesUploaded && (
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="border-2 border-gray-300 rounded-lg p-4">
-                            <h3 className="text-gray-700 font-semibold mb-2">Upload NIC Front</h3>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFrontImageUpload}
-                                className="w-full text-sm  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-red-600 file:border file:border-red-600 file:hover:bg-red-100"
-                            />
-                            {frontImage && (
-                                <p className="text-green-600 text-sm mt-2">Image selected: {frontImage.name}</p>
-                            )}
-                        </div>
-                        <div className="border-2 border-gray-300 rounded-lg p-4">
-                            <h3 className="text-gray-700 font-semibold mb-2">Upload NIC Back</h3>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleBackImageUpload}
-                                className="w-full text-sm  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-red-600 file:border file:border-red-600 file:hover:bg-red-100"
-                            />
-                            {backImage && (
-                                <p className="text-green-600 text-sm mt-2">Image selected: {backImage.name}</p>
-                            )}
-                        </div>
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="border-2 border-gray-300 rounded-lg p-4">
+                        <h3 className="text-gray-700 font-semibold mb-2">Upload NIC Front</h3>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFrontImageUpload}
+                            className="w-full text-sm  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-red-600 file:border file:border-red-600 file:hover:bg-red-100"
+                        />
+                        {frontImage && (
+                            <p className="text-green-600 text-sm mt-2">Image selected: {frontImage.name}</p>
+                        )}
                     </div>
-                )}
-
-                {/* Show NIC Previews only after both images are uploaded */}
-                {bothImagesUploaded && (
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="border-2 border-gray-300 rounded-lg p-4">
-                            <h3 className="text-gray-700 font-semibold mb-2">NIC Front Preview</h3>
-                            <img
-                                src={frontPreview}
-                                alt="NIC Front"
-                                className="w-full h-48 object-contain bg-gray-100 rounded-md"
-                            />
-                        </div>
-                        <div className="border-2 border-gray-300 rounded-lg p-4">
-                            <h3 className="text-gray-700 font-semibold mb-2">NIC Back Preview</h3>
-                            <img
-                                src={backPreview}
-                                alt="NIC Back"
-                                className="w-full h-48 object-contain bg-gray-100 rounded-md"
-                            />
-                        </div>
+                    <div className="border-2 border-gray-300 rounded-lg p-4">
+                        <h3 className="text-gray-700 font-semibold mb-2">Upload NIC Back</h3>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleBackImageUpload}
+                            className="w-full text-sm  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white file:text-red-600 file:border file:border-red-600 file:hover:bg-red-100"
+                        />
+                        {backImage && (
+                            <p className="text-green-600 text-sm mt-2">Image selected: {backImage.name}</p>
+                        )}
                     </div>
-                )}
-
-                {/* Buttons */}
+                </div>
                 <div className="flex justify-center gap-4">
                     <button
                         onClick={handleSubmit}
