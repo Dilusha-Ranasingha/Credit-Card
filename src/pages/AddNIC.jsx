@@ -52,7 +52,7 @@ const AddNIC = () => {
         <div className="flex items-center justify-center min-h-screen bg-gray-200">
             <div className="bg-white p-6 rounded-xl shadow-xl w-[600px] text-center space-y-6">
                 <h2 className="text-xl font-bold text-gray-800 mb-2">Update Your NIC</h2>
-                <p className="text-gray-600 text-sm">Please upload clear images of the front and back of your National Identity Card (NIC).</p>
+                <p className="text-gray-600 text-left text-md">Want to save time? <br /> <br /> Upload a clear image of your new NIC (front and back) to automatically fill in your name, address and NIC number. <br /><br />This is optional and only works with the new NIC format shown below.</p>
 
                 {/* Existing ID Images Display */}
                 <div className="grid grid-cols-2 gap-4">
