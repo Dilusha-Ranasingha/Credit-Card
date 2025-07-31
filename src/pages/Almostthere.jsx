@@ -121,10 +121,12 @@ const Almostthere = () => {
         <ProgressIndicator steps={steps} currentStep={currentStep} />
         
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-xl italic text-red-700 text-center mb-4">
             "Help us verify your identity"
           </h1>
-          <h2 className="text-xl font-medium text-gray-800">Upload Documents</h2>
+        </div>
+        <div>
+          <h2 className="text-xl text-align-left font-bold text-gray-800">Upload Documents</h2>
         </div>
 
         <div className="space-y-8">

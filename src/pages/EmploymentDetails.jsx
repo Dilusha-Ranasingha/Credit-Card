@@ -42,7 +42,7 @@ const EmploymentDetails = () => {
     <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
         <ProgressIndicator steps={steps} currentStep={currentStep} />
-        <h2 className="text-2xl font-bold text-red-700 text-center mb-4">Let's learn about your professional background</h2>
+        <h2 className="text-xl italic text-red-700 text-center mb-4">"Let's learn about your professional background"</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <select name="employmentType" onChange={handleChange} className="p-3 border rounded-lg">

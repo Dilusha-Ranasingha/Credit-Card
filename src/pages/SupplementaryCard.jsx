@@ -27,7 +27,7 @@ const SupplementaryCard = () => {
     <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
         <ProgressIndicator steps={steps} currentStep={currentStep} />
-        <h2 className="text-2xl font-bold text-red-700 text-center mb-4">Provide details for an additional cardholder</h2>
+        <h2 className="text-xl italic text-red-700 text-center mb-4">"Provide details for an additional cardholder"</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="md:col-span-2 flex items-center gap-4">

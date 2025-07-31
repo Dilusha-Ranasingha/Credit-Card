@@ -23,7 +23,7 @@ const PersonalDetails = () => {
     <div className="bg-gradient-to-br from-red-100 to-blue-100 min-h-screen py-12 px-4 flex justify-center items-center">
       <div className="bg-white rounded-xl shadow-xl p-10 w-full max-w-4xl space-y-8">
         <ProgressIndicator steps={steps} currentStep={currentStep} />
-        <h2 className="text-2xl font-bold text-red-700 text-center mb-4">We would like to know more about you</h2>
+        <h2 className="text-xl italic text-red-700 text-center mb-4">"We would like to know more about you"</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <select name="title" onChange={handleChange} className="p-3 border rounded-lg">
@@ -88,7 +88,7 @@ const PersonalDetails = () => {
           </div>
         </div>
 
-        <p className="text-gray-500 text-center text-base mt-4 mb-2 font-medium">
+        <p className="text-xl italic text-red-700 text-center mb-4">
           "We would like to know some reference details of an alternative contact person"
         </p>
 
